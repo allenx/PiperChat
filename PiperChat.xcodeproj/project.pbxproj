@@ -20,7 +20,9 @@
 		B166150C1ECB1795000EEB05 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166150B1ECB1795000EEB05 /* BubbleCell.swift */; };
 		B166150E1ECC4C55000EEB05 /* PiperChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166150D1ECC4C55000EEB05 /* PiperChatMessage.swift */; };
 		B16615101ECC4F20000EEB05 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166150F1ECC4F20000EEB05 /* ChatDetailViewController.swift */; };
-		B16615121ECC5476000EEB05 /* SessionCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615111ECC5476000EEB05 /* SessionCellTableViewCell.swift */; };
+		B16615121ECC5476000EEB05 /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615111ECC5476000EEB05 /* SessionCell.swift */; };
+		B16615141ECC7814000EEB05 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615131ECC7814000EEB05 /* Badge.swift */; };
+		B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */; };
 		BBB952C199603255B26D6D10 /* Pods_PiperChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91DEF4BD117C06B3154446BC /* Pods_PiperChat.framework */; };
 		E494E9EFF5A5ED2F5C5B6569 /* Pods_PiperChatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895798331DC6FD9623982BC1 /* Pods_PiperChatUITests.framework */; };
 /* End PBXBuildFile section */
@@ -68,7 +70,9 @@
 		B166150B1ECB1795000EEB05 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		B166150D1ECC4C55000EEB05 /* PiperChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatMessage.swift; sourceTree = "<group>"; };
 		B166150F1ECC4F20000EEB05 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
-		B16615111ECC5476000EEB05 /* SessionCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCellTableViewCell.swift; sourceTree = "<group>"; };
+		B16615111ECC5476000EEB05 /* SessionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
+		B16615131ECC7814000EEB05 /* Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatSession.swift; sourceTree = "<group>"; };
 		BD4EC1DE6338BB50BA8157BA /* Pods-PiperChatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiperChatUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PiperChatUITests/Pods-PiperChatUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DCDE115D8BA8FCA7D3B9798B /* Pods_PiperChatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiperChatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -194,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				B166150D1ECC4C55000EEB05 /* PiperChatMessage.swift */,
+				B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,7 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				B166150B1ECB1795000EEB05 /* BubbleCell.swift */,
-				B16615111ECC5476000EEB05 /* SessionCellTableViewCell.swift */,
+				B16615111ECC5476000EEB05 /* SessionCell.swift */,
+				B16615131ECC7814000EEB05 /* Badge.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -490,12 +496,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B16615121ECC5476000EEB05 /* SessionCellTableViewCell.swift in Sources */,
+				B16615121ECC5476000EEB05 /* SessionCell.swift in Sources */,
+				B16615141ECC7814000EEB05 /* Badge.swift in Sources */,
 				B16615051ECAFEE2000EEB05 /* log.swift in Sources */,
 				B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */,
 				B10254621ECA015A0064373A /* Metadata.swift in Sources */,
 				B16615101ECC4F20000EEB05 /* ChatDetailViewController.swift in Sources */,
 				B10254321EC955990064373A /* AppDelegate.swift in Sources */,
+				B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */,
 				B16615081ECB1760000EEB05 /* MainViewController.swift in Sources */,
 				B166150E1ECC4C55000EEB05 /* PiperChatMessage.swift in Sources */,
 				B166150C1ECB1795000EEB05 /* BubbleCell.swift in Sources */,

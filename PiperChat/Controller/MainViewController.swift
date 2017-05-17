@@ -22,6 +22,16 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Metadata.Color.accentColor
+        //Changing NavigationBar Title color
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
+        
+        navigationItem.title = "PiperChat"
+        
         chatTableView = UITableView()
         
         view = chatTableView
@@ -30,25 +40,6 @@ class MainViewController: UIViewController {
         
         chatTableView.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
-        
-//        let socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:80")!, config: [.log(true), .forcePolling(true)])
-//        //let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .forcePolling(true)])
-//        socket.on(clientEvent: .connect) { (data, ack) in
-//            log.word("socket connected")/
-//            log.obj(data as AnyObject)/
-//        }
-//        
-//        socket.on("currentAmount") {data, ack in
-//            if let cur = data[0] as? Double {
-//                socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-//                    socket.emit("update", ["amount": cur + 2.50])
-//                }
-//                
-//                ack.with("Got your currentAmount", "dude")
-//            }
-//        }
-//        
-//        socket.connect()
         
 
         
