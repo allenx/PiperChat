@@ -10,5 +10,18 @@ import Foundation
 
 struct PiperChatSession {
     let palID: String!
+    let palName: String!
+    let messages: [PiperChatMessage]!
+    
+    var latestMessage: PiperChatMessage {
+        get {
+//            for message in messages.reversed() {
+//                if message.palID == palID {
+//                    return message
+//                }
+//            }
+            return messages.last!
+        }
+    }
     
 }

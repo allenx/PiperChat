@@ -15,21 +15,18 @@ class ChatDetailViewController: UIViewController {
     var chatBubbleTable = UITableView()
     var messages: [PiperChatMessage] = []
 
+    convenience init(messages: [PiperChatMessage]) {
+        self.init()
+        self.messages = messages
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Sigmond Freud"
         
-        //Foo testing
-        let m1 = PiperChatMessage(string: "Hellooooooo, 你上午十点过的时候讲话声音太大了 你的大招两千多上海", time: Date(), type: .Sent, uid: "2")
-        let m2 = PiperChatMessage(string: "【阿里云】亲！第三届阿里中间件性能挑战赛重磅来袭，快加入挑战，展现技术实力吧！大赛提供30万大奖和美国硅谷游学机会！详情：http://tb.cn/BERDoqw 更多资讯请关注微信tianchibigdata001 回td退订", time: Date(), type: .Received, uid: "2")
+        title = messages[0].palID
         
-        let m3 = PiperChatMessage(string: "温馨提示：截止05月14日24时，您当月累计使用流量740.3MB。其中：国内流量已使用596.1MB，剩余2.840GB；省内闲时流量已使用144.3MB，剩余1.418GB； 回复“流量查询”或点击进入http://wap.10010.com 查询详情。", time: Date(), type: .Received, uid: "2")
         
-        let m4 = PiperChatMessage(string: "师兄我刚刚加了你了不知道你有没有收到", time: Date(), type: .Sent, uid: "1")
-        
-        let m5 = PiperChatMessage(string: "【阿里巴巴校园招聘】恭喜你获得阿里巴巴实习生offer，欢迎你加入温暖的大家庭！请及时查收个人简历中填写的邮箱并在5月12日中午12点之前完成其中的调研问卷，让阿里能了解你的情况。若有疑问，可咨询阿里巴巴校招小蜜。", time: Date(), type: .Received, uid: "2")
-        messages = [m1, m2, m3, m4, m5]
         
         chatBubbleTable.dataSource = self
         chatBubbleTable.delegate = self
@@ -99,7 +96,6 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BubbleCell(message: messages[indexPath.row])
-        cell.selectionStyle = .none
         return cell
     }
 }

@@ -26,6 +26,8 @@ class BubbleCell: UITableViewCell {
         let bubble = bubbleWith(message: message)
         contentView.addSubview(bubble)
         
+        selectionStyle = .none
+        
     }
     
     func bubbleWith(message: PiperChatMessage) -> UIImageView {

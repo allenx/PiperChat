@@ -17,11 +17,16 @@ struct Metadata {
         static let accentColor = UIColor(hex6: 0x69DAC1)
         
         static let naviTextColor = UIColor(hex6: 0xFFFFFF)
+        
+        
+        // Color for secondary texts like "view more"
+        // Hex = 999999
+        static let secondaryTextColor = UIColor(hex6: 0x999999)
     }
     
     struct Font {
         
-        static let messageFont = UIFont.systemFont(ofSize: 14)
+        static let messageFont = UIFont.systemFont(ofSize: 16)
         
     }
     

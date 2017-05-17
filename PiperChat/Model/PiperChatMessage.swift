@@ -12,6 +12,6 @@ struct PiperChatMessage {
     let string: String!
     let time: Date!
     let type: CellType!
-    let uid: String!
+    let palID: String!
     
 }
