@@ -103,7 +103,7 @@ class MainViewController: UIViewController {
         
         
         newChatButton = FABButton(title: "+")
-    
+        
         newChatButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
         newChatButton.backgroundColor = Metadata.Color.accentColor
         newChatButton.pulseColor = .white
@@ -186,7 +186,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row < sessions.count {
             let chatDetailVC = ChatDetailViewController(messages: sessions[indexPath.row].messages)
-        navigationController?.pushViewController(chatDetailVC, animated: true)
+//            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
+            navigationController?.pushViewController(chatDetailVC, animated: true)
         }
         
     }

@@ -17,5 +17,6 @@ class Badge: UIView {
         // Drawing code
     }
     */
+    
 
 }

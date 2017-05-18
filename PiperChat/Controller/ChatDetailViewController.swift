@@ -26,8 +26,6 @@ class ChatDetailViewController: UIViewController {
         
         title = messages[0].palID
         
-        
-        
         chatBubbleTable.dataSource = self
         chatBubbleTable.delegate = self
         chatBubbleTable.separatorColor = .clear
