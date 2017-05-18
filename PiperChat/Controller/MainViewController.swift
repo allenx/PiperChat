@@ -11,20 +11,31 @@ import SocketIO
 import WebKit
 import RealmSwift
 import SnapKit
+import Material
 
 
 
 class MainViewController: UIViewController {
-
+    
     var chatTableView = UITableView()
     var sessions: [PiperChatSession] = []
-
+    var newChatButton: FABButton!
+    
     let vc = LoginViewController()
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareFabBtn()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dismissFabAnimated()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         
         if !AccountManager.shared.isLoggedIn {
@@ -42,7 +53,7 @@ class MainViewController: UIViewController {
         
         let m4 = PiperChatMessage(string: "师兄我刚刚加了你了不知道你有没有收到", time: Date(), type: .sent, palID: "1")
         
-        let m5 = PiperChatMessage(string: "【阿里巴巴校园招聘】恭喜你获得阿里巴巴实习生offer，欢迎你加入温暖的大家庭！请及时查收个人简历中填写的邮箱并在5月12日中午12点之前完成其中的调研问卷，让阿里能了解你的情况。若有疑问，可咨询阿里巴巴校招小蜜。", time: Date(), type: .received, palID: "2")
+        let m5 = PiperChatMessage(string: "It was a pleasure ! Hope you guys have a great day until your flight ! Safe trip back !", time: Date(), type: .received, palID: "2")
         var messages = [m1, m2, m3, m4, m5]
         let session = PiperChatSession(palID: "1", palName: "Richard Hendrix", messages: messages)
         
@@ -68,17 +79,51 @@ class MainViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
         
-
+        
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func dismissFabAnimated() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+            self.newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height+10, width: 60, height: 60)
+        }) { (animationFinished) in
+            if animationFinished {
+                self.newChatButton.removeFromSuperview()
+            }
+        }
+    }
+    
+    func prepareFabBtn() {
+        
+        
+        newChatButton = FABButton(title: "+")
+    
+        newChatButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+        newChatButton.backgroundColor = Metadata.Color.accentColor
+        newChatButton.pulseColor = .white
+        newChatButton.pulseAnimation = .pointWithBacking
+        
+        newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height-90, width: 60, height: 60)
+        newChatButton.transform = CGAffineTransform(translationX: 0, y: 100)
+        
+        navigationController?.view.addSubview(newChatButton)
+        UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+            self.newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height-90, width: 60, height: 60)
+        }) { (flag) in
+            
+        }
+    }
+    
+    func startNewChat() {
+        
+    }
+    
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -90,24 +135,59 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if sessions.count < 6 {
+            return sessions.count + 2
+        }
+        
         return sessions.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = SessionCell(session: sessions[indexPath.row])
-
+        if indexPath.row < sessions.count {
+            let cell = SessionCell(session: sessions[indexPath.row])
+            return cell
+        }
+        
+        let cell = UITableViewCell()
+        cell.selectionStyle = .none
+        if indexPath.row == sessions.count {
+            let newChat = UIImageView(image: #imageLiteral(resourceName: "newChatBtn"))
+            newChat.contentMode = .scaleAspectFit
+            cell.contentView.addSubview(newChat)
+            newChat.snp.makeConstraints {
+                make in
+                make.center.equalTo(cell.contentView)
+                make.width.equalTo(Metadata.Size.Screen.width * 0.9)
+                
+            }
+        }
+        if indexPath.row == sessions.count + 1 {
+            let newGroup = UIImageView(image: #imageLiteral(resourceName: "groupChatBtn"))
+            newGroup.contentMode = .scaleAspectFit
+            cell.contentView.addSubview(newGroup)
+            newGroup.snp.makeConstraints {
+                make in
+                make.center.equalTo(cell.contentView)
+                make.width.equalTo(Metadata.Size.Screen.width * 0.9)
+                
+            }
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 86
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let chatDetailVC = ChatDetailViewController(messages: sessions[indexPath.row].messages)
+        if indexPath.row < sessions.count {
+            let chatDetailVC = ChatDetailViewController(messages: sessions[indexPath.row].messages)
         navigationController?.pushViewController(chatDetailVC, animated: true)
+        }
+        
     }
 }
