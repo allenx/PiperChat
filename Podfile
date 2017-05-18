@@ -11,6 +11,7 @@ target 'PiperChat' do
   pod 'Socket.IO-Client-Swift', '~> 9.0.1'
   pod 'RealmSwift'
   pod 'SDWebImage'
+  pod 'Material'
   target 'PiperChatTests' do
     inherit! :search_paths
     # Pods for testing

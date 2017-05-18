@@ -15,6 +15,8 @@
 		B10254521EC9559A0064373A /* PiperChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254511EC9559A0064373A /* PiperChatUITests.swift */; };
 		B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102545F1ECA00C50064373A /* ClassExtensions.swift */; };
 		B10254621ECA015A0064373A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254611ECA015A0064373A /* Metadata.swift */; };
+		B15926701ECD919A00AE9140 /* PiperChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B159266F1ECD919A00AE9140 /* PiperChatUser.swift */; };
+		B15926721ECD935400AE9140 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15926711ECD935400AE9140 /* AccountManager.swift */; };
 		B16615051ECAFEE2000EEB05 /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615041ECAFEE2000EEB05 /* log.swift */; };
 		B16615081ECB1760000EEB05 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615071ECB1760000EEB05 /* MainViewController.swift */; };
 		B166150C1ECB1795000EEB05 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B166150B1ECB1795000EEB05 /* BubbleCell.swift */; };
@@ -70,6 +72,8 @@
 		B10254531EC9559A0064373A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B102545F1ECA00C50064373A /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
 		B10254611ECA015A0064373A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		B159266F1ECD919A00AE9140 /* PiperChatUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatUser.swift; sourceTree = "<group>"; };
+		B15926711ECD935400AE9140 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B16615041ECAFEE2000EEB05 /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		B16615071ECB1760000EEB05 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B166150B1ECB1795000EEB05 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				B166150D1ECC4C55000EEB05 /* PiperChatMessage.swift */,
+				B159266F1ECD919A00AE9140 /* PiperChatUser.swift */,
 				B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */,
 			);
 			path = Model;
@@ -232,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				B1A036DC1ECC853300B9DDDE /* PiperChatSessionManager.swift */,
+				B15926711ECD935400AE9140 /* AccountManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -524,6 +530,8 @@
 				B16615141ECC7814000EEB05 /* Badge.swift in Sources */,
 				B16615051ECAFEE2000EEB05 /* log.swift in Sources */,
 				B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */,
+				B15926721ECD935400AE9140 /* AccountManager.swift in Sources */,
+				B15926701ECD919A00AE9140 /* PiperChatUser.swift in Sources */,
 				B10254621ECA015A0064373A /* Metadata.swift in Sources */,
 				B1F795871ECCD286000A6DEB /* Fab.swift in Sources */,
 				B16615101ECC4F20000EEB05 /* ChatDetailViewController.swift in Sources */,

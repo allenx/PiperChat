@@ -33,6 +33,13 @@ class ChatDetailViewController: UIViewController {
         chatBubbleTable.separatorColor = .clear
         view = chatBubbleTable
         
+        
+        //TODO: Fix it
+        if chatBubbleTable.numberOfRows(inSection: 0) != 0 {
+            let indexPath = IndexPath(row: chatBubbleTable.numberOfRows(inSection: 0)-1, section: 0)
+            chatBubbleTable.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            log.word("scrolled to bottom")/
+        }
         // Do any additional setup after loading the view.
     }
 

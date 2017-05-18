@@ -22,6 +22,8 @@ struct Metadata {
         // Color for secondary texts like "view more"
         // Hex = 999999
         static let secondaryTextColor = UIColor(hex6: 0x999999)
+        
+        static let statusBarAccentColor = UIColor(hex6: 0x54C6AD)
     }
     
     struct Font {

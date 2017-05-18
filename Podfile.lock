@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.4.0)
+  - Material (2.6.3):
+    - Material/Core (= 2.6.3)
+  - Material/Core (2.6.3)
   - Realm (2.7.0):
     - Realm/Headers (= 2.7.0)
   - Realm/Headers (2.7.0)
@@ -13,6 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Material
   - RealmSwift
   - SDWebImage
   - SnapKit
@@ -20,12 +24,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Material: af607a7ec0e9978ef85cf189a3d8ceeeb650400f
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Socket.IO-Client-Swift: 60b71a684692a312c4aba3ef52f186e0e254e868
 
-PODFILE CHECKSUM: e7db1a695b8833da3829d5e9dda33be762f379da
+PODFILE CHECKSUM: b541b0027154db0bdf2ac602d14e2770d65206d3
 
 COCOAPODS: 1.2.1

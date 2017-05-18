@@ -9,8 +9,8 @@
 import UIKit
 
 enum CellType {
-    case Sent
-    case Received
+    case sent
+    case received
 }
 
 class BubbleCell: UITableViewCell {
@@ -44,7 +44,7 @@ class BubbleCell: UITableViewCell {
             cornerRadius = bubbleHeight / 3.0
         }
         
-        if message.type == .Sent {
+        if message.type == .sent {
             let bubble = UIImageView(imageName: "BubbleSend", desiredSize: CGSize(width: bubbleWidth, height: bubbleHeight))
             bubble?.layer.cornerRadius = cornerRadius
             bubble?.clipsToBounds = true
