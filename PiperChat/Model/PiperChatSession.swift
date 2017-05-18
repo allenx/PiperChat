@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct PiperChatSession {
     let palID: String!
@@ -27,5 +28,32 @@ struct PiperChatSession {
     mutating func insert(message: PiperChatMessage) {
         messages.append(message)
     }
+}
+
+final class PiperChatSessionObject: Object {
+    dynamic var palID: String!
+    dynamic var palName: String!
+    let messages = List<PiperChatMessageObject>()
+}
+
+extension PiperChatSession: Persistent {
+    init(mappedObject: PiperChatSessionObject) {
+        palID = mappedObject.palID
+        palName = mappedObject.palName
+        messages = []
+        for message in mappedObject.messages {
+            messages.append(PiperChatMessage(mappedObject: message))
+        }
+    }
     
+    func mappedObject() -> PiperChatSessionObject {
+        let mappedObject = PiperChatSessionObject()
+        mappedObject.palID = palID
+        mappedObject.palName = palName
+        for message in messages {
+            mappedObject.messages.append(message.mappedObject())
+        }
+        
+        return mappedObject
+    }
 }

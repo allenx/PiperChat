@@ -18,6 +18,8 @@
 		B12EB86C1ECDDAC200C24ECF /* BubbleLiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB86B1ECDDAC200C24ECF /* BubbleLiveCell.swift */; };
 		B12EB86E1ECDDBC100C24ECF /* ChatDetailLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB86D1ECDDBC100C24ECF /* ChatDetailLiveViewController.swift */; };
 		B12EB8701ECDDF0100C24ECF /* ScrollFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB86F1ECDDF0100C24ECF /* ScrollFlowLayout.swift */; };
+		B14568A01ECE2A970010B9F1 /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145689F1ECE2A970010B9F1 /* Persistent.swift */; };
+		B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A11ECE31260010B9F1 /* RealmManager.swift */; };
 		B15926701ECD919A00AE9140 /* PiperChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B159266F1ECD919A00AE9140 /* PiperChatUser.swift */; };
 		B15926721ECD935400AE9140 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15926711ECD935400AE9140 /* AccountManager.swift */; };
 		B16615051ECAFEE2000EEB05 /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615041ECAFEE2000EEB05 /* log.swift */; };
@@ -77,6 +79,8 @@
 		B12EB86B1ECDDAC200C24ECF /* BubbleLiveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleLiveCell.swift; sourceTree = "<group>"; };
 		B12EB86D1ECDDBC100C24ECF /* ChatDetailLiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailLiveViewController.swift; sourceTree = "<group>"; };
 		B12EB86F1ECDDF0100C24ECF /* ScrollFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollFlowLayout.swift; sourceTree = "<group>"; };
+		B145689F1ECE2A970010B9F1 /* Persistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
+		B14568A11ECE31260010B9F1 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B159266F1ECD919A00AE9140 /* PiperChatUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatUser.swift; sourceTree = "<group>"; };
 		B15926711ECD935400AE9140 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B16615041ECAFEE2000EEB05 /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				B166150D1ECC4C55000EEB05 /* PiperChatMessage.swift */,
+				B145689F1ECE2A970010B9F1 /* Persistent.swift */,
 				B159266F1ECD919A00AE9140 /* PiperChatUser.swift */,
 				B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */,
 			);
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				B1A036DC1ECC853300B9DDDE /* PiperChatSessionManager.swift */,
+				B14568A11ECE31260010B9F1 /* RealmManager.swift */,
 				B15926711ECD935400AE9140 /* AccountManager.swift */,
 			);
 			path = Manager;
@@ -531,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B14568A01ECE2A970010B9F1 /* Persistent.swift in Sources */,
 				B1F795891ECCD57D000A6DEB /* GradientRainbowView.swift in Sources */,
 				B16615121ECC5476000EEB05 /* SessionCell.swift in Sources */,
 				B16615141ECC7814000EEB05 /* Badge.swift in Sources */,
@@ -543,6 +550,7 @@
 				B16615101ECC4F20000EEB05 /* ChatDetailViewController.swift in Sources */,
 				B10254321EC955990064373A /* AppDelegate.swift in Sources */,
 				B1A036DD1ECC853300B9DDDE /* PiperChatSessionManager.swift in Sources */,
+				B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */,
 				B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */,
 				B12EB86C1ECDDAC200C24ECF /* BubbleLiveCell.swift in Sources */,
 				B16615081ECB1760000EEB05 /* MainViewController.swift in Sources */,
