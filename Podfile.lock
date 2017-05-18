@@ -11,6 +11,7 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SlackTextViewController (1.9.5)
   - SnapKit (3.2.0)
   - Socket.IO-Client-Swift (9.0.1)
 
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Material
   - RealmSwift
   - SDWebImage
+  - SlackTextViewController
   - SnapKit
   - Socket.IO-Client-Swift (~> 9.0.1)
 
@@ -28,9 +30,10 @@ SPEC CHECKSUMS:
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SlackTextViewController: fbcdadbb8090673f604484ff5b6eb8d77baed42a
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Socket.IO-Client-Swift: 60b71a684692a312c4aba3ef52f186e0e254e868
 
-PODFILE CHECKSUM: b541b0027154db0bdf2ac602d14e2770d65206d3
+PODFILE CHECKSUM: 6918bb801ecc855061d6e3aa2c8f9197117d4f3e
 
 COCOAPODS: 1.2.1

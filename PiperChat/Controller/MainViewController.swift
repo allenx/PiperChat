@@ -21,9 +21,8 @@ class MainViewController: UIViewController {
     var sessions: [PiperChatSession] = []
     var newChatButton: FABButton!
     
-    let vc = LoginViewController()
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         prepareFabBtn()
     }
@@ -185,7 +184,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row < sessions.count {
-            let chatDetailVC = ChatDetailViewController(messages: sessions[indexPath.row].messages)
+            let chatDetailVC = ChatDetailViewController(session: sessions[indexPath.row])
 //            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
             navigationController?.pushViewController(chatDetailVC, animated: true)
         }

@@ -12,6 +12,7 @@ target 'PiperChat' do
   pod 'RealmSwift'
   pod 'SDWebImage'
   pod 'Material'
+  pod 'SlackTextViewController'
   target 'PiperChatTests' do
     inherit! :search_paths
     # Pods for testing

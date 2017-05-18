@@ -11,7 +11,7 @@ import Foundation
 struct PiperChatSession {
     let palID: String!
     let palName: String!
-    let messages: [PiperChatMessage]!
+    var messages: [PiperChatMessage]!
     
     var latestMessage: PiperChatMessage {
         get {
@@ -22,6 +22,10 @@ struct PiperChatSession {
 //            }
             return messages.last!
         }
+    }
+    
+    mutating func insert(message: PiperChatMessage) {
+        messages.append(message)
     }
     
 }
