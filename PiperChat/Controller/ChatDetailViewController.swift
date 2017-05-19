@@ -142,6 +142,10 @@ extension ChatDetailViewController {
         
         var bubbleHeight = messageHeight + 14
         
+        if currentMessage.string.characters.count < 5 && currentMessage.string.containsOnlyEmoji {
+            bubbleHeight = 60
+        }
+        
         if indexPath.row < messages.count - 1 {
             //Broken because of using SlackTextViewController
             let nextMessage = messages[indexPath.row + 1]
@@ -153,6 +157,7 @@ extension ChatDetailViewController {
             
             //            return bubbleHeight + 8
         }
+        
         
         return bubbleHeight
     }

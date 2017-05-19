@@ -30,14 +30,27 @@ class BubbleCell: UITableViewCell {
         
     }
     
-    func bubbleWith(message: PiperChatMessage) -> UIImageView {
+    func bubbleWith(message: PiperChatMessage) -> UIView {
         
         var cornerRadius: CGFloat = 20
         var bubbleWidth: CGFloat = (Metadata.Size.Screen.width / 3.0) * 2.0
-        let bubbleHeight: CGFloat = message.string.height(withConstrainedWidth: bubbleWidth-20, font: Metadata.Font.messageFont) + 14
+        var bubbleHeight: CGFloat = message.string.height(withConstrainedWidth: bubbleWidth-20, font: Metadata.Font.messageFont) + 14
         
-        if message.string.characters.count < 17 {
-            bubbleWidth = CGFloat(message.string.characters.count * 15 + 20)
+        if message.string.containsChineseCharacters {
+            if message.string.characters.count < 17 {
+                let fooLabel = UILabel(text: message.string)
+                fooLabel.font = Metadata.Font.messageFont
+                fooLabel.sizeToFit()
+                bubbleWidth = fooLabel.bounds.size.width + 20
+            }
+        } else {
+            if message.string.characters.count < 34 {
+//                bubbleWidth = CGFloat(message.string.characters.count) * 8 + 20
+                let fooLabel = UILabel(text: message.string)
+                fooLabel.font = Metadata.Font.messageFont
+                fooLabel.sizeToFit()
+                bubbleWidth = fooLabel.bounds.size.width + 20
+            }
         }
         
         if bubbleHeight < 50 {
@@ -45,6 +58,16 @@ class BubbleCell: UITableViewCell {
         }
         
         if message.type == .sent {
+            
+            if message.string.characters.count < 5 && message.string.containsOnlyEmoji {
+                let emojiBubble = UILabel(text: message.string, fontSize: 50)
+                emojiBubble.sizeToFit()
+                bubbleWidth = emojiBubble.bounds.size.width
+                bubbleHeight = emojiBubble.bounds.size.height + 14
+                emojiBubble.frame = CGRect(x: (Metadata.Size.Screen.width-15-bubbleWidth), y: 0, width: bubbleWidth, height: bubbleHeight)
+                return emojiBubble
+            }
+            
             let bubble = UIImageView(imageName: "BubbleSend", desiredSize: CGSize(width: bubbleWidth, height: bubbleHeight))
             bubble?.layer.cornerRadius = cornerRadius
             bubble?.clipsToBounds = true
@@ -64,7 +87,12 @@ class BubbleCell: UITableViewCell {
             // Using better UITextView for special data format detecting
             let messageTextView = UITextView(frame: CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14))
             messageTextView.text = message.string
-            messageTextView.font = Metadata.Font.messageFont
+            if message.string.characters.count < 4 && message.string.containsOnlyEmoji {
+                messageTextView.font = Metadata.Font.messageEmojiFont
+            } else {
+                messageTextView.font = Metadata.Font.messageFont
+            }
+            
             messageTextView.textColor = .white
             messageTextView.backgroundColor = .clear
             messageTextView.isScrollEnabled = false
@@ -78,6 +106,15 @@ class BubbleCell: UITableViewCell {
             return bubble!
             
         } else {
+            
+            if message.string.characters.count < 5 && message.string.containsOnlyEmoji {
+                let emojiBubble = UILabel(text: message.string, fontSize: 50)
+                emojiBubble.sizeToFit()
+                bubbleWidth = emojiBubble.bounds.size.width
+                emojiBubble.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: 60)
+                return emojiBubble
+            }
+            
             let bubble = UIImageView(imageName: "BubbleReceive", desiredSize: CGSize(width: bubbleWidth, height: bubbleHeight))
             bubble?.layer.cornerRadius = cornerRadius
             bubble?.clipsToBounds = true
@@ -97,7 +134,11 @@ class BubbleCell: UITableViewCell {
             // Using better UITextView for special data format detecting
             let messageTextView = UITextView(frame: CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14))
             messageTextView.text = message.string
-            messageTextView.font = Metadata.Font.messageFont
+            if message.string.characters.count < 4 && message.string.containsOnlyEmoji {
+                messageTextView.font = Metadata.Font.messageEmojiFont
+            } else {
+                messageTextView.font = Metadata.Font.messageFont
+            }
             messageTextView.textColor = .black
             messageTextView.backgroundColor = .clear
             messageTextView.isScrollEnabled = false
@@ -110,6 +151,7 @@ class BubbleCell: UITableViewCell {
             bubble?.addSubview(messageTextView)
             return bubble!
         }
+        
     }
     
     override func awakeFromNib() {

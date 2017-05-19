@@ -29,6 +29,7 @@ struct Metadata {
     struct Font {
         
         static let messageFont = UIFont.systemFont(ofSize: 16)
+        static let messageEmojiFont = UIFont.systemFont(ofSize: 50)
         
     }
     

@@ -7,4 +7,20 @@
 //
 
 import Foundation
+import RealmSwift
 
+struct RealmManager {
+    
+//    static let shared = RealmManager()
+//    private let realm: Realm
+//    
+//    init() throws {
+//        try self.init(realm: Realm())
+//    }
+    
+    func update(session: PiperChatSession, and completion: () -> ()) {
+        
+        
+        completion()
+    }
+}

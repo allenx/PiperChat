@@ -187,7 +187,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             let chatDetailVC = ChatDetailViewController(session: sessions[indexPath.row])
 //            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
             navigationController?.pushViewController(chatDetailVC, animated: true)
+        } else if indexPath.row == sessions.count {
+            // Start a new chat
+        } else if indexPath.row == sessions.count + 1 {
+            // Create a group
         }
+        
         
     }
 }
