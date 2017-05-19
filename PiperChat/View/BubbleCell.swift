@@ -14,7 +14,7 @@ enum CellType {
 }
 
 class BubbleCell: UITableViewCell {
-
+    
     var message: PiperChatMessage!
     var type: CellType!
     
@@ -45,7 +45,7 @@ class BubbleCell: UITableViewCell {
             }
         } else {
             if message.string.characters.count < 34 {
-//                bubbleWidth = CGFloat(message.string.characters.count) * 8 + 20
+                //                bubbleWidth = CGFloat(message.string.characters.count) * 8 + 20
                 let fooLabel = UILabel(text: message.string)
                 fooLabel.font = Metadata.Font.messageFont
                 fooLabel.sizeToFit()
@@ -63,7 +63,8 @@ class BubbleCell: UITableViewCell {
                 let emojiBubble = UILabel(text: message.string, fontSize: 50)
                 emojiBubble.sizeToFit()
                 bubbleWidth = emojiBubble.bounds.size.width
-                bubbleHeight = emojiBubble.bounds.size.height + 14
+                bubbleHeight = emojiBubble.bounds.size.height
+                log.obj(bubbleHeight as AnyObject)/
                 emojiBubble.frame = CGRect(x: (Metadata.Size.Screen.width-15-bubbleWidth), y: 0, width: bubbleWidth, height: bubbleHeight)
                 return emojiBubble
             }
@@ -74,14 +75,14 @@ class BubbleCell: UITableViewCell {
             
             bubble?.frame = CGRect(x: (Metadata.Size.Screen.width-15-bubbleWidth), y: 0, width: bubbleWidth, height: bubbleHeight)
             
-//            let messageLabel = UILabel(text: message.string, fontSize: 14)
-//            messageLabel.textColor = .white
-//            messageLabel.numberOfLines = 0
-//            messageLabel.lineBreakMode = .byWordWrapping
-//            
-//            messageLabel.frame = CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14)
-//            
-//            bubble?.addSubview(messageLabel)
+            //            let messageLabel = UILabel(text: message.string, fontSize: 14)
+            //            messageLabel.textColor = .white
+            //            messageLabel.numberOfLines = 0
+            //            messageLabel.lineBreakMode = .byWordWrapping
+            //
+            //            messageLabel.frame = CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14)
+            //
+            //            bubble?.addSubview(messageLabel)
             
             
             // Using better UITextView for special data format detecting
@@ -111,7 +112,8 @@ class BubbleCell: UITableViewCell {
                 let emojiBubble = UILabel(text: message.string, fontSize: 50)
                 emojiBubble.sizeToFit()
                 bubbleWidth = emojiBubble.bounds.size.width
-                emojiBubble.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: 60)
+                bubbleHeight = emojiBubble.bounds.size.height
+                emojiBubble.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: bubbleHeight)
                 return emojiBubble
             }
             
@@ -121,14 +123,14 @@ class BubbleCell: UITableViewCell {
             
             bubble?.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: bubbleHeight)
             
-//            let messageLabel = UILabel(text: message.string, fontSize: 14)
-//            messageLabel.textColor = .black
-//            messageLabel.numberOfLines = 0
-//            messageLabel.lineBreakMode = .byWordWrapping
-//            
-//            messageLabel.frame = CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14)
-//            
-//            bubble?.addSubview(messageLabel)
+            //            let messageLabel = UILabel(text: message.string, fontSize: 14)
+            //            messageLabel.textColor = .black
+            //            messageLabel.numberOfLines = 0
+            //            messageLabel.lineBreakMode = .byWordWrapping
+            //
+            //            messageLabel.frame = CGRect(x: 10, y: 7, width: bubbleWidth - 20, height: bubbleHeight - 14)
+            //
+            //            bubble?.addSubview(messageLabel)
             
             
             // Using better UITextView for special data format detecting
@@ -158,11 +160,11 @@ class BubbleCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

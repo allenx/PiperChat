@@ -18,12 +18,12 @@ struct PiperChatMessage {
 }
 
 final class PiperChatMessageObject: Object {
-
+    
     dynamic var string: String!
     dynamic var time: Date!
     dynamic var type: Int = 0
     dynamic var palID: String!
-
+    
 }
 
 extension PiperChatMessage: Persistent {

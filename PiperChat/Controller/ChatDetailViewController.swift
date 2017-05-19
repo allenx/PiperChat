@@ -37,11 +37,17 @@ class ChatDetailViewController: SLKTextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let messageToSend = UserDefaults.standard.object(forKey: "messageToSendTo\(session.palID)") {
+            textView.text = messageToSend as! String
+        }
+        
         // Using SlackTextViewController is funny because my tableView is all inverted by default
         isInverted = false
         bounces = true
         isKeyboardPanningEnabled = true
         textView.layer.borderColor = UIColor(colorLiteralRed: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
+        textView.placeholder = "Message"
+        textView.placeholderColor = .gray
         
         textView.backgroundColor = .white
         textInputbar.backgroundColor = .white
@@ -69,6 +75,17 @@ class ChatDetailViewController: SLKTextViewController {
         //TODO: Fix it
         scrollToBottom(animated: false)
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if textView.text != "" {
+            // Set the messageToSend cache
+            UserDefaults.standard.set(textView.text, forKey: "messageToSendTo\(session.palID)")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "messageToSendTo\(session.palID)")
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -114,15 +131,15 @@ extension ChatDetailViewController {
         return messages.count
     }
     
-        override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return 20.0
-        }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20.0
+    }
     
-        override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            let fooView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 20))
-    
-            return fooView
-        }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let fooView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 20))
+        
+        return fooView
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
@@ -183,6 +200,22 @@ extension ChatDetailViewController {
         
         tableViewLastPosition = scrollView.contentOffset
         
+        //        if (tableView?.isDragging)! {
+        //
+        //            for (index, cell) in (tableView?.visibleCells)!.enumerated() {
+        //                if scrollOrientation == .down {
+        //                    cell.contentView.layer.transform = CATransform3DMakeTranslation(0, -30, 0)
+        //                } else {
+        //                    cell.contentView.layer.transform = CATransform3DMakeTranslation(0, 30, 0)
+        //                }
+        //                UIView.animate(withDuration: 0.5, delay: Double(index) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+        //                    cell.contentView.layer.transform = CATransform3DIdentity
+        //                }, completion: nil)
+        //
+        //            }
+        //
+        //        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -204,7 +237,7 @@ extension ChatDetailViewController {
     }
     
     override func didPressRightButton(_ sender: Any?) {
-        log.word(textView.text)/
+
         textView.refreshFirstResponder()
         
         let messageToSend = PiperChatMessage(string: textView.text, time: Date(), type: .sent, palID: session.palID)

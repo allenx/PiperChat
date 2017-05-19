@@ -16,11 +16,11 @@ struct PiperChatSession {
     
     var latestMessage: PiperChatMessage {
         get {
-//            for message in messages.reversed() {
-//                if message.palID == palID {
-//                    return message
-//                }
-//            }
+            //            for message in messages.reversed() {
+            //                if message.palID == palID {
+            //                    return message
+            //                }
+            //            }
             return messages.last!
         }
     }

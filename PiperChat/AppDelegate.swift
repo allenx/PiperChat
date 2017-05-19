@@ -30,10 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vc = MainViewController()
         let nav = UINavigationController(rootViewController: vc)
-//        let statusBarVC = StatusBarController(rootViewController: nav)
-//        statusBarVC.prepare()
-//        statusBarVC.statusBarStyle = .default
-//        statusBarVC.statusBar.backgroundColor = Metadata.Color.statusBarAccentColor
+        //        let statusBarVC = StatusBarController(rootViewController: nav)
+        //        statusBarVC.prepare()
+        //        statusBarVC.statusBarStyle = .default
+        //        statusBarVC.statusBar.backgroundColor = Metadata.Color.statusBarAccentColor
         if let window = window {
             window.rootViewController = nav
             window.makeKeyAndVisible()

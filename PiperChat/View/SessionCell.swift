@@ -23,8 +23,8 @@ class SessionCell: UITableViewCell {
         let avatarView = UIImageView()
         
         
-        if let avatarImage = SDImageCache.shared().imageFromCache(forKey: "avatar_\(palID)") {
-            log.word("Found Cache!")/
+        if let avatarImage = SDImageCache.shared().imageFromCache(forKey: "avatar_\(palID!)") {
+//            log.word("Found Cache!")/
             avatarView.image = avatarImage
             avatarView.layer.cornerRadius = 28
             avatarView.clipsToBounds = true
@@ -34,7 +34,7 @@ class SessionCell: UITableViewCell {
             avatarView.clipsToBounds = true
             
             // Caching
-            SDImageCache.shared().store(avatarView.image, forKey: "avatar_\(palID)", toDisk: true) {
+            SDImageCache.shared().store(avatarView.image, forKey: "avatar_\(palID!)", toDisk: true) {
                 log.word("Cached Successfully!")/
             }
         }

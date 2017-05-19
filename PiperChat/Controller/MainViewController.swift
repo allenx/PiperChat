@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
         
         
         if !AccountManager.shared.isLoggedIn {
-            log.word("Need to Login")/
+//            log.word("Need to Login")/
             let loginVC = LoginViewController()
             navigationController?.pushViewController(loginVC, animated: false)
         }
@@ -53,7 +53,11 @@ class MainViewController: UIViewController {
         let m4 = PiperChatMessage(string: "师兄我刚刚加了你了不知道你有没有收到", time: Date(), type: .sent, palID: "1")
         
         let m5 = PiperChatMessage(string: "It was a pleasure ! Hope you guys have a great day until your flight ! Safe trip back !", time: Date(), type: .received, palID: "2")
-        var messages = [m1, m2, m3, m4, m5]
+        
+        let m6 = PiperChatMessage(string: "😘😘", time: Date(), type: .received, palID: "2")
+        let m7 = PiperChatMessage(string: "😘😘", time: Date(), type: .sent, palID: "2")
+        
+        var messages = [m1, m2, m3, m4, m5, m6, m7]
         let session = PiperChatSession(palID: "1", palName: "Richard Hendrix", messages: messages)
         
         let session2 = session
@@ -106,7 +110,7 @@ class MainViewController: UIViewController {
         newChatButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
         newChatButton.backgroundColor = Metadata.Color.accentColor
         newChatButton.pulseColor = .white
-        newChatButton.pulseAnimation = .pointWithBacking
+        newChatButton.pulseAnimation = .centerRadialBeyondBounds
         
         newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height-90, width: 60, height: 60)
         newChatButton.transform = CGAffineTransform(translationX: 0, y: 100)
@@ -185,7 +189,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row < sessions.count {
             let chatDetailVC = ChatDetailViewController(session: sessions[indexPath.row])
-//            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
+            //            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
             navigationController?.pushViewController(chatDetailVC, animated: true)
         } else if indexPath.row == sessions.count {
             // Start a new chat
