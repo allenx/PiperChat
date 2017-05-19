@@ -1,8 +1,8 @@
 //
-//  SessionCell.swift
+//  UserCell.swift
 //  PiperChat
 //
-//  Created by Allen X on 5/17/17.
+//  Created by Allen X on 5/20/17.
 //  Copyright © 2017 allenx. All rights reserved.
 //
 
@@ -10,22 +10,20 @@ import UIKit
 import SDWebImage
 import Material
 
-class SessionCell: TableViewCell {
+class UserCell: TableViewCell {
+
+    var user: PiperChatUser!
     
-    var session: PiperChatSession!
-    
-    convenience init(session: PiperChatSession) {
+    convenience init(user: PiperChatUser) {
         self.init()
-        self.session = session
+        self.user = user
         
-        let palName = session.palName
-        let palID = session.palID
-        let messageToDisplay = session.latestMessage
+        let userName = user.userName
+        let palID = user.uid
         let avatarView = UIImageView()
         
-        
         if let avatarImage = SDImageCache.shared().imageFromCache(forKey: "avatar_\(palID!)") {
-//            log.word("Found Cache!")/
+            //            log.word("Found Cache!")/
             avatarView.image = avatarImage
             avatarView.layer.cornerRadius = 28
             avatarView.clipsToBounds = true
@@ -40,12 +38,8 @@ class SessionCell: TableViewCell {
             }
         }
         
-        
-        let palNameLabel = UILabel(text: palName!, boldFontSize: 18)
-        palNameLabel.numberOfLines = 1
-        let messageToDisplayLabel = UILabel(text: messageToDisplay.string, fontSize: 14)
-        messageToDisplayLabel.numberOfLines = 2
-        messageToDisplayLabel.textColor = Metadata.Color.secondaryTextColor
+        let nameLabel = UILabel(text: userName!, boldFontSize: 18)
+        nameLabel.numberOfLines = 1
         
         contentView.addSubview(avatarView)
         avatarView.snp.makeConstraints {
@@ -55,31 +49,24 @@ class SessionCell: TableViewCell {
             make.height.width.equalTo(56)
         }
         
-        contentView.addSubview(palNameLabel)
-        palNameLabel.snp.makeConstraints {
+        contentView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints {
             make in
-            make.top.equalTo(avatarView)
+            make.centerY.equalTo(contentView)
             make.left.equalTo(avatarView.snp.right).offset(14)
         }
-        
-        contentView.addSubview(messageToDisplayLabel)
-        messageToDisplayLabel.snp.makeConstraints {
-            make in
-            make.left.equalTo(palNameLabel)
-            make.top.equalTo(palNameLabel.snp.bottom).offset(4)
-            make.right.equalTo(contentView).offset(-30)
-        }
+
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
-    
+
 }

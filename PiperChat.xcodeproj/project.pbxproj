@@ -17,6 +17,8 @@
 		B10254621ECA015A0064373A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254611ECA015A0064373A /* Metadata.swift */; };
 		B14568A01ECE2A970010B9F1 /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145689F1ECE2A970010B9F1 /* Persistent.swift */; };
 		B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A11ECE31260010B9F1 /* RealmManager.swift */; };
+		B14568A41ECF27A80010B9F1 /* FriendsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */; };
+		B14568A61ECF512E0010B9F1 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A51ECF512E0010B9F1 /* UserCell.swift */; };
 		B15926701ECD919A00AE9140 /* PiperChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B159266F1ECD919A00AE9140 /* PiperChatUser.swift */; };
 		B15926721ECD935400AE9140 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15926711ECD935400AE9140 /* AccountManager.swift */; };
 		B16615051ECAFEE2000EEB05 /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615041ECAFEE2000EEB05 /* log.swift */; };
@@ -75,6 +77,8 @@
 		B10254611ECA015A0064373A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		B145689F1ECE2A970010B9F1 /* Persistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
 		B14568A11ECE31260010B9F1 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsPickerView.swift; sourceTree = "<group>"; };
+		B14568A51ECF512E0010B9F1 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		B159266F1ECD919A00AE9140 /* PiperChatUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatUser.swift; sourceTree = "<group>"; };
 		B15926711ECD935400AE9140 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B16615041ECAFEE2000EEB05 /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				B166150B1ECB1795000EEB05 /* BubbleCell.swift */,
 				B1F795881ECCD57D000A6DEB /* GradientRainbowView.swift */,
 				B16615111ECC5476000EEB05 /* SessionCell.swift */,
+				B14568A51ECF512E0010B9F1 /* UserCell.swift */,
+				B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */,
 				B1A036DE1ECC9D3800B9DDDE /* SessionManager.swift */,
 				B16615131ECC7814000EEB05 /* Badge.swift */,
 			);
@@ -542,11 +548,13 @@
 				B1A036DD1ECC853300B9DDDE /* PiperChatSessionManager.swift in Sources */,
 				B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */,
 				B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */,
+				B14568A41ECF27A80010B9F1 /* FriendsPickerView.swift in Sources */,
 				B16615081ECB1760000EEB05 /* MainViewController.swift in Sources */,
 				B1F7958B1ECCD5E0000A6DEB /* LoginViewController.swift in Sources */,
 				B166150E1ECC4C55000EEB05 /* PiperChatMessage.swift in Sources */,
 				B166150C1ECB1795000EEB05 /* BubbleCell.swift in Sources */,
 				B1A036DF1ECC9D3800B9DDDE /* SessionManager.swift in Sources */,
+				B14568A61ECF512E0010B9F1 /* UserCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

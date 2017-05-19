@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct PiperChatSession {
+    
     let palID: String!
     let palName: String!
     var messages: [PiperChatMessage]!
@@ -34,6 +35,10 @@ final class PiperChatSessionObject: Object {
     dynamic var palID: String!
     dynamic var palName: String!
     let messages = List<PiperChatMessageObject>()
+    
+    override static func primaryKey() -> String? {
+        return "palID"
+    }
 }
 
 extension PiperChatSession: Persistent {

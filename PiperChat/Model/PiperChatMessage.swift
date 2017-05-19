@@ -11,7 +11,7 @@ import RealmSwift
 
 struct PiperChatMessage {
     let string: String!
-    let time: Date!
+    let timestamp: UInt64?
     let type: CellType!
     let palID: String!
     
@@ -20,16 +20,20 @@ struct PiperChatMessage {
 final class PiperChatMessageObject: Object {
     
     dynamic var string: String!
-    dynamic var time: Date!
+    dynamic var timestamp: String!
     dynamic var type: Int = 0
     dynamic var palID: String!
+    
+    override static func primaryKey() -> String? {
+        return "timestamp"
+    }
     
 }
 
 extension PiperChatMessage: Persistent {
     init(mappedObject: PiperChatMessageObject) {
         string = mappedObject.string
-        time = mappedObject.time
+        timestamp = UInt64(mappedObject.timestamp)!
         type = mappedObject.type == 0 ? .received : .sent
         palID = mappedObject.palID
     }
@@ -37,7 +41,7 @@ extension PiperChatMessage: Persistent {
     func mappedObject() -> PiperChatMessageObject {
         let mappedObject = PiperChatMessageObject()
         mappedObject.string = string
-        mappedObject.time = time
+        mappedObject.timestamp = String(timestamp!)
         mappedObject.type = type == .received ? 0 : 1
         mappedObject.palID = palID
         

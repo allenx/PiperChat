@@ -18,6 +18,7 @@ import Material
 class MainViewController: UIViewController {
     
     var chatTableView = UITableView()
+    var friendsPickerView: FriendsPickerView!
     var sessions: [PiperChatSession] = []
     var newChatButton: FABButton!
     
@@ -35,33 +36,42 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        sessions = RealmManager.shared.fetchSessions()
         
         if !AccountManager.shared.isLoggedIn {
-//            log.word("Need to Login")/
+            //            log.word("Need to Login")/
             let loginVC = LoginViewController()
-            navigationController?.pushViewController(loginVC, animated: false)
+//            navigationController?.pushViewController(loginVC, animated: false)
         }
         
         
         //Foo testing
-        let m1 = PiperChatMessage(string: "Hellooooooo, 你上午十点过的时候讲话声音太大了 你的大招两千多上海", time: Date(), type: .sent, palID: "2")
-        let m2 = PiperChatMessage(string: "【阿里云】亲！第三届阿里中间件性能挑战赛重磅来袭，快加入挑战，展现技术实力吧！大赛提供30万大奖和美国硅谷游学机会！详情：http://tb.cn/BERDoqw 更多资讯请关注微信tianchibigdata001 回td退订", time: Date(), type: .received, palID: "2")
+        //        let m1 = PiperChatMessage(string: "Hellooooooo, 你上午十点过的时候讲话声音太大了 你的大招两千多上海", timestamp: Date().ticks, type: .sent, palID: "2")
+        //        let m2 = PiperChatMessage(string: "【阿里云】亲！第三届阿里中间件性能挑战赛重磅来袭，快加入挑战，展现技术实力吧！大赛提供30万大奖和美国硅谷游学机会！详情：http://tb.cn/BERDoqw 更多资讯请关注微信tianchibigdata001 回td退订", timestamp: Date().ticks+1, type: .received, palID: "2")
+        //
+        //        let m3 = PiperChatMessage(string: "温馨提示：截止05月14日24时，您当月累计使用流量740.3MB。其中：国内流量已使用596.1MB，剩余2.840GB；省内闲时流量已使用144.3MB，剩余1.418GB； 回复“流量查询”或点击进入http://wap.10010.com 查询详情。", timestamp: Date().ticks+2, type: .received, palID: "2")
+        //
+        //        let m4 = PiperChatMessage(string: "师兄我刚刚加了你了不知道你有没有收到", timestamp: Date().ticks+6, type: .sent, palID: "1")
+        //
+        //        let m5 = PiperChatMessage(string: "It was a pleasure ! Hope you guys have a great day until your flight ! Safe trip back !", timestamp: Date().ticks+3, type: .received, palID: "2")
+        //
+        //        let m6 = PiperChatMessage(string: "😘😘", timestamp: Date().ticks+4, type: .received, palID: "2")
+        //        let m7 = PiperChatMessage(string: "😘😘", timestamp: Date().ticks+5, type: .sent, palID: "2")
+        //
+        //        var messages = [m1, m2, m3, m4, m5, m6, m7]
+        //        let session = PiperChatSession(palID: "1", palName: "Richard Hendrix", messages: messages)
+        //
+        //        let session2 = session
+        //        sessions = [session, session2]
         
-        let m3 = PiperChatMessage(string: "温馨提示：截止05月14日24时，您当月累计使用流量740.3MB。其中：国内流量已使用596.1MB，剩余2.840GB；省内闲时流量已使用144.3MB，剩余1.418GB； 回复“流量查询”或点击进入http://wap.10010.com 查询详情。", time: Date(), type: .received, palID: "2")
         
-        let m4 = PiperChatMessage(string: "师兄我刚刚加了你了不知道你有没有收到", time: Date(), type: .sent, palID: "1")
         
-        let m5 = PiperChatMessage(string: "It was a pleasure ! Hope you guys have a great day until your flight ! Safe trip back !", time: Date(), type: .received, palID: "2")
+        //        try! RealmManager.shared.write {
+        //            transaction in
+        //            transaction.add(session, update: true)
+        //        }
         
-        let m6 = PiperChatMessage(string: "😘😘", time: Date(), type: .received, palID: "2")
-        let m7 = PiperChatMessage(string: "😘😘", time: Date(), type: .sent, palID: "2")
         
-        var messages = [m1, m2, m3, m4, m5, m6, m7]
-        let session = PiperChatSession(palID: "1", palName: "Richard Hendrix", messages: messages)
-        
-        let session2 = session
-        sessions = [session, session2]
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.accentColor
@@ -98,6 +108,7 @@ class MainViewController: UIViewController {
         }) { (animationFinished) in
             if animationFinished {
                 self.newChatButton.removeFromSuperview()
+                self.newChatButton = nil
             }
         }
     }
@@ -106,7 +117,7 @@ class MainViewController: UIViewController {
         
         
         newChatButton = FABButton(title: "+")
-        
+        newChatButton.addTarget(self, action: #selector(startNewChat), for: .touchUpInside)
         newChatButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
         newChatButton.backgroundColor = Metadata.Color.accentColor
         newChatButton.pulseColor = .white
@@ -124,7 +135,16 @@ class MainViewController: UIViewController {
     }
     
     func startNewChat() {
+        //foo testing
+        let user1 = PiperChatUser(uid: "1", userName: "Richard Hendrix")
+        let user2 = PiperChatUser(uid: "1", userName: "Allen X")
+        let user3 = PiperChatUser(uid: "1", userName: "Sean Luhring")
         
+        var friends = [user1, user2, user3]
+        friends = friends + friends + friends + friends
+        
+        let pickerView = FriendsPickerView(friends: friends)
+        navigationController?.view.addSubview(pickerView)
     }
     
 }
@@ -192,7 +212,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             //            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
             navigationController?.pushViewController(chatDetailVC, animated: true)
         } else if indexPath.row == sessions.count {
-            // Start a new chat
+            startNewChat()
         } else if indexPath.row == sessions.count + 1 {
             // Create a group
         }

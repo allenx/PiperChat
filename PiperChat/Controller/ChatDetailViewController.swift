@@ -240,7 +240,7 @@ extension ChatDetailViewController {
 
         textView.refreshFirstResponder()
         
-        let messageToSend = PiperChatMessage(string: textView.text, time: Date(), type: .sent, palID: session.palID)
+        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palID: session.palID)
         //Send the message via socket and do networking and data storing
         
         let indexPath = IndexPath(row: messages.count, section: 0)
@@ -249,6 +249,10 @@ extension ChatDetailViewController {
         tableView?.beginUpdates()
         session.insert(message: messageToSend)
         tableView?.insertRows(at: [indexPath], with: rowAnimation)
+        try! RealmManager.shared.write {
+            transaction in
+            transaction.add(self.session, update: true)
+        }
         tableView?.endUpdates()
         
         

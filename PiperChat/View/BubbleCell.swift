@@ -64,7 +64,7 @@ class BubbleCell: UITableViewCell {
                 emojiBubble.sizeToFit()
                 bubbleWidth = emojiBubble.bounds.size.width
                 bubbleHeight = emojiBubble.bounds.size.height
-                log.obj(bubbleHeight as AnyObject)/
+//                log.obj(bubbleHeight as AnyObject)/
                 emojiBubble.frame = CGRect(x: (Metadata.Size.Screen.width-15-bubbleWidth), y: 0, width: bubbleWidth, height: bubbleHeight)
                 return emojiBubble
             }
