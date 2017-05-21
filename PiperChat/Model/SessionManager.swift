@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+struct SessionManager {
+    static var sessions: [PiperChatSession] = RealmManager.shared.fetchSessions()
+    
+    static func flush() {
+        try! RealmManager.shared.write {
+            transaction in
+            
+        }
+    }
+}

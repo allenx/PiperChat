@@ -63,8 +63,8 @@ class ChatDetailViewController: SLKTextViewController {
         rightButton.setTitle("send", for: .normal)
         
         session.messages = session.messages + session.messages
-        //        title = messages[0].palID
-        title = "Richard Henderix"
+        title = session.palName
+        
         tableView?.separatorColor = .clear
         
         // Do any additional setup after loading the view.

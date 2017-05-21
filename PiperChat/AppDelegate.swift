@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        statusBarVC.statusBarStyle = .default
         //        statusBarVC.statusBar.backgroundColor = Metadata.Color.statusBarAccentColor
         if let window = window {
+            window.layer.cornerRadius = 8
+            nav.view.layer.cornerRadius = 8
+            window.clipsToBounds = true
             window.rootViewController = nav
             window.makeKeyAndVisible()
         }

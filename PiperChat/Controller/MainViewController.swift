@@ -8,7 +8,7 @@
 
 import UIKit
 import SocketIO
-import WebKit
+//import WebKit
 import RealmSwift
 import SnapKit
 import Material
@@ -103,8 +103,11 @@ class MainViewController: UIViewController {
     }
     
     func dismissFabAnimated() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
-            self.newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height+10, width: 60, height: 60)
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+            if self.newChatButton != nil {
+                self.newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height+10, width: 60, height: 60)
+            }
+            
         }) { (animationFinished) in
             if animationFinished {
                 self.newChatButton.removeFromSuperview()
@@ -127,7 +130,7 @@ class MainViewController: UIViewController {
         newChatButton.transform = CGAffineTransform(translationX: 0, y: 100)
         
         navigationController?.view.addSubview(newChatButton)
-        UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
             self.newChatButton.frame = CGRect(x: Metadata.Size.Screen.width-90, y: Metadata.Size.Screen.height-90, width: 60, height: 60)
         }) { (flag) in
             

@@ -14,6 +14,7 @@ class FriendsPickerView: UIView {
     var frostView: UIVisualEffectView!
     var tableView: UITableView!
     var friends: [PiperChatUser] = []
+    var isTrackingPanLocation = false
     
     //    convenience init(friends: [PiperChatUser]) {
     //        self.init()
@@ -54,7 +55,7 @@ class FriendsPickerView: UIView {
         tableView.frame = CGRect(x: 0, y: Metadata.Size.Screen.height / 8, width: Metadata.Size.Screen.width, height: Metadata.Size.Screen.height/8*7 + 20)
         addSubview(tableView)
         tableView.transform = CGAffineTransform(translationX: 0, y: tableView.bounds.size.height)
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.frostView.alpha = 1
             self.tableView.transform = CGAffineTransform.identity
         }, completion: nil)
@@ -68,7 +69,12 @@ class FriendsPickerView: UIView {
 extension FriendsPickerView {
     
     func dismissAnimated(and completion: @escaping () -> ()) {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+        for view in frostView.subviews {
+            if view.isKind(of: UILabel.self) {
+                view.removeFromSuperview()
+            }
+        }
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.tableView.transform = CGAffineTransform(translationX: 0, y: self.tableView.bounds.size.height)
             self.frostView.alpha = 0
         }) { finished in
@@ -81,7 +87,12 @@ extension FriendsPickerView {
     }
     
     func dismissAnimatedWithNoCompletion() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+        for view in frostView.subviews {
+            if view.isKind(of: UILabel.self) {
+                view.removeFromSuperview()
+            }
+        }
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.tableView.transform = CGAffineTransform(translationX: 0, y: self.tableView.bounds.size.height)
             self.frostView.alpha = 0
         }) { finished in
@@ -92,6 +103,11 @@ extension FriendsPickerView {
         }
     }
     
+}
+
+
+extension FriendsPickerView: UIGestureRecognizerDelegate {
+    
     func assignGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissAnimatedWithNoCompletion))
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(dismissAnimatedWithNoCompletion))
@@ -101,10 +117,43 @@ extension FriendsPickerView {
         frostView.addGestureRecognizer(tapGesture)
         frostView.addGestureRecognizer(swipeDown)
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panRecognized(recognizer:)))
+        panGesture.delegate = self
+        tableView.addGestureRecognizer(panGesture)
+        
+    }
+    
+    func panRecognized(recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .began && tableView.contentOffset.y == 0 {
+            recognizer.setTranslation(CGPoint.zero, in: tableView)
+            isTrackingPanLocation = true
+        } else if recognizer.state != .ended && recognizer.state != .failed && recognizer.state != .cancelled && isTrackingPanLocation {
+            let panOffset = recognizer.translation(in: tableView)
+            
+            let isEligible = panOffset.y > 200
+            if isEligible {
+                recognizer.isEnabled = false
+                recognizer.isEnabled = true
+                self.dismissAnimatedWithNoCompletion()
+            }
+            
+            if panOffset.y < 0 {
+                isTrackingPanLocation = false
+            }
+        } else {
+            isTrackingPanLocation = false
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
+
 extension FriendsPickerView: UITableViewDelegate, UITableViewDataSource {
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -139,3 +188,4 @@ extension FriendsPickerView: UITableViewDelegate, UITableViewDataSource {
         return UIView()
     }
 }
+
