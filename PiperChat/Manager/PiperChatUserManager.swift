@@ -16,4 +16,14 @@ class PiperChatUserManager: NSObject {
     func didChangeFriendList() {
         // TODO: finish it
     }
+    
+    func userNickNameFrom(id: String) -> String {
+        for user in users! {
+            if user.uid == id {
+                return user.userName
+            }
+        }
+        
+        return "Anonymous"
+    }
 }

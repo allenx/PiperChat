@@ -37,6 +37,8 @@ class ChatDetailViewController: SLKTextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SocketManager.shared.delegate = self
+        
         if let messageToSend = UserDefaults.standard.object(forKey: "messageToSendTo\(session.palID)") {
             textView.text = messageToSend as! String
         }
@@ -62,7 +64,7 @@ class ChatDetailViewController: SLKTextViewController {
         leftButton.tintColor = .gray
         rightButton.setTitle("send", for: .normal)
         
-        session.messages = session.messages + session.messages
+        session.messages = session.messages
         title = session.palName
         
         tableView?.separatorColor = .clear
@@ -119,6 +121,26 @@ class ChatDetailViewController: SLKTextViewController {
      */
     
     
+}
+
+extension ChatDetailViewController: MessageOnReceiveDelegate {
+    func didReceive(message: PiperChatMessage) {
+        if message.palID == session.palID {
+            let indexPath = IndexPath(row: messages.count, section: 0)
+            let rowAnimation: UITableViewRowAnimation = .top
+            
+            tableView?.beginUpdates()
+            session.insert(message: message)
+            log.any(session)/
+            tableView?.insertRows(at: [indexPath], with: rowAnimation)
+
+            tableView?.endUpdates()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+            tableView?.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
 extension ChatDetailViewController {
@@ -240,7 +262,8 @@ extension ChatDetailViewController {
 
         textView.refreshFirstResponder()
         
-        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palID: session.palID)
+//        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palID: session.palID)
+        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palUserName: session.palUserName, palID: session.palID)
         //Send the message via socket and do networking and data storing
         
         let indexPath = IndexPath(row: messages.count, section: 0)
@@ -249,6 +272,7 @@ extension ChatDetailViewController {
         tableView?.beginUpdates()
         session.insert(message: messageToSend)
         tableView?.insertRows(at: [indexPath], with: rowAnimation)
+        
         try! RealmManager.shared.write {
             transaction in
             transaction.add(self.session, update: true)
@@ -259,6 +283,8 @@ extension ChatDetailViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
+        
+        SocketManager.shared.send(message: messageToSend.string, to: session.palUserName)
         
         tableView?.reloadRows(at: [indexPath], with: .automatic)
         

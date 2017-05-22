@@ -13,6 +13,7 @@ struct PiperChatSession {
     
     let palID: String!
     let palName: String!
+    let palUserName: String!
     var messages: [PiperChatMessage]!
     
     var latestMessage: PiperChatMessage {
@@ -34,6 +35,7 @@ struct PiperChatSession {
 final class PiperChatSessionObject: Object {
     dynamic var palID: String!
     dynamic var palName: String!
+    dynamic var palUserName: String!
     let messages = List<PiperChatMessageObject>()
     
     override static func primaryKey() -> String? {
@@ -45,6 +47,7 @@ extension PiperChatSession: Persistent {
     init(mappedObject: PiperChatSessionObject) {
         palID = mappedObject.palID
         palName = mappedObject.palName
+        palUserName = mappedObject.palUserName
         messages = []
         for message in mappedObject.messages {
             messages.append(PiperChatMessage(mappedObject: message))
@@ -55,6 +58,7 @@ extension PiperChatSession: Persistent {
         let mappedObject = PiperChatSessionObject()
         mappedObject.palID = palID
         mappedObject.palName = palName
+        mappedObject.palUserName = palUserName
         for message in messages {
             mappedObject.messages.append(message.mappedObject())
         }

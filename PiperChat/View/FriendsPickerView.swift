@@ -183,7 +183,7 @@ extension FriendsPickerView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismissAnimated {
             let friend = self.friends[indexPath.row]
-            let newSession = PiperChatSession(palID: friend.uid, palName: friend.userName, messages: [])
+            let newSession = PiperChatSession(palID: friend.uid, palName: friend.nickName, palUserName: friend.userName, messages: [])
             let chatDetailVC = ChatDetailViewController(session: newSession)
             (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.pushViewController(chatDetailVC, animated: true)
         }

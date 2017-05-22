@@ -13,7 +13,8 @@ struct PiperChatMessage {
     let string: String!
     let timestamp: UInt64?
     let type: CellType!
-    let palID: String!
+    let palUserName: String!
+    let palID: String
     
 }
 
@@ -22,6 +23,7 @@ final class PiperChatMessageObject: Object {
     dynamic var string: String!
     dynamic var timestamp: String!
     dynamic var type: Int = 0
+    dynamic var palUserName: String!
     dynamic var palID: String!
     
     override static func primaryKey() -> String? {
@@ -35,6 +37,7 @@ extension PiperChatMessage: Persistent {
         string = mappedObject.string
         timestamp = UInt64(mappedObject.timestamp)!
         type = mappedObject.type == 0 ? .received : .sent
+        palUserName = mappedObject.palUserName
         palID = mappedObject.palID
     }
     
@@ -43,6 +46,7 @@ extension PiperChatMessage: Persistent {
         mappedObject.string = string
         mappedObject.timestamp = String(timestamp!)
         mappedObject.type = type == .received ? 0 : 1
+        mappedObject.palUserName = palUserName
         mappedObject.palID = palID
         
         return mappedObject

@@ -18,7 +18,7 @@ class UserCell: TableViewCell {
         self.init()
         self.user = user
         
-        let userName = user.userName
+        let nickName = user.nickName
         let palID = user.uid
         let avatarView = UIImageView()
         
@@ -38,7 +38,7 @@ class UserCell: TableViewCell {
             }
         }
         
-        let nameLabel = UILabel(text: userName!, boldFontSize: 18)
+        let nameLabel = UILabel(text: nickName!, boldFontSize: 18)
         nameLabel.numberOfLines = 1
         
         contentView.addSubview(avatarView)

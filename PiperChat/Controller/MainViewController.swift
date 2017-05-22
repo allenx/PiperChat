@@ -23,8 +23,14 @@ class MainViewController: UIViewController {
     var newChatButton: FABButton!
     
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        sessions = PiperChatSessionManager.shared.sessions
+        chatTableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         prepareFabBtn()
     }
     
@@ -36,10 +42,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        SocketManager.shared.readyToReceiveMessages()
-        
-        
-        sessions = PiperChatSessionManager.shared.sessions
+        SocketManager.shared.delegate = self
         
         if !AccountManager.shared.isLoggedIn {
             //            log.word("Need to Login")/
@@ -233,5 +236,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         
+    }
+}
+
+extension MainViewController: MessageOnReceiveDelegate {
+    func didReceive(message: PiperChatMessage) {
+        sessions = PiperChatSessionManager.shared.sessions
+        chatTableView.reloadData()
     }
 }

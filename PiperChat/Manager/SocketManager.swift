@@ -9,28 +9,114 @@
 import SocketIO
 import UIKit
 
+protocol MessageOnReceiveDelegate: class {
+    func didReceive(message: PiperChatMessage)
+}
+
 class SocketManager: NSObject {
     
     static let shared = SocketManager()
+    var delegate: MessageOnReceiveDelegate!
     
-    var socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(true), .forcePolling(true)])
+    private var socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(true), .forcePolling(true)])
     
     func establishConnection() {
+        
+        //        let channel = UserDefaults.standard.object(forKey: "PiperChatUserName") as! String
+        //        socket.on(channel) { (data, ack) in
+        //                if let dic = data[0] as? [String: Any] {
+        //                    guard let palID = dic["fromID"] as? Int,
+        //                        let string = dic["message"] as? String else {
+        //                            log.errorMessage("fuck")/
+        //                            return
+        //                    }
+        //
+        //                    let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
+        //                    PiperChatSessionManager.shared.didReceive(message: message)
+        //
+        //                    // For other view controllers to update their views
+        //                    self.delegate.didReceive(message: message)
+        //                }
+        //
+        //        }
+        
+        //        socket.on("messageSC") { (data, ack) in
+        //            if let dic = data[0] as? [String: Any] {
+        //                guard let palID = dic["fromID"] as? Int,
+        //                    let string = dic["message"] as? String else {
+        //                        log.errorMessage("fuck")/
+        //                        return
+        //                }
+        //
+        ////                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
+        //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: <#T##String!#>, palID: <#T##String#>)
+        //                PiperChatSessionManager.shared.didReceive(message: message)
+        //
+        //                // For other view controllers to update their views
+        //                self.delegate.didReceive(message: message)
+        //            }
+        //
+        //        }
+        
         socket.connect()
     }
     
-    func readyToReceiveMessages() {
-        socket.on(UserDefaults.standard.object(forKey: "PiperChatUserID") as! String) { (data, ack) in
+    func readyToReceiveMessage() {
+        //        let channel = UserDefaults.standard.object(forKey: "PiperChatUserName") as! String
+        //        socket.on(channel) { (data, ack) in
+        //            if let dic = data[0] as? [String: Any] {
+        //                guard let palID = dic["fromID"] as? Int,
+        //                let palUserName = dic["from"] as? String,
+        //                    let string = dic["message"] as? String else {
+        //                        log.errorMessage("fuck")/
+        //                        return
+        //                }
+        //
+        ////                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
+        //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
+        //                PiperChatSessionManager.shared.didReceive(message: message)
+        //
+        //                // For other view controllers to update their views
+        //                self.delegate.didReceive(message: message)
+        //            }
+        //
+        //        }
+        
+        socket.on("receive") { (data, ack) in
             if let dic = data[0] as? [String: Any] {
                 guard let palID = dic["fromID"] as? Int,
-                    let string = dic["message"] as? String else {
+                    let palUserName = dic["from"] as? String,
+                    let string = dic["message"] as? String,
+                    let toUserName = dic["to"] as? String else {
+                        //                        log.errorMessage("fuck")/
                         return
                 }
                 
-                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
-                PiperChatSessionManager.shared.didReceive(message: message)
+                //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
+                if toUserName == UserDefaults.standard.object(forKey: "PiperChatUserName") as! String {
+                    let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
+                    
+                    log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
+                    
+                    PiperChatSessionManager.shared.didReceive(message: message)
+                    
+                    // For other view controllers to update their views
+                    self.delegate.didReceive(message: message)
+                }
+                
             }
+            
         }
+    }
+    
+    func send(message: String, to username: String) {
+        let messageBody: [String: String] = [
+            "fromID": UserDefaults.standard.object(forKey: "PiperChatUserID") as! String,
+            "from": UserDefaults.standard.object(forKey: "PiperChatUserName") as! String,
+            "message": message,
+            "to": username
+        ]
+        socket.emit("messageTo", messageBody)
     }
     
     func closeConnection() {
@@ -67,10 +153,10 @@ class SocketManager: NSObject {
         
         socket.on("friendList") { (data, ack) in
             if let result = data as? [[String: Any]] {
-//                log.obj(result as AnyObject)/
+                //                log.obj(result as AnyObject)/
                 
                 let friends = result[0]["results"] as! [[String: Any]]
-//                log.obj(friends as AnyObject)/
+                //                log.obj(friends as AnyObject)/
                 completion(friends)
             }
         }

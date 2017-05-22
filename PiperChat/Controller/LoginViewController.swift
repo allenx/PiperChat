@@ -79,12 +79,13 @@ extension LoginViewController {
             [weak self] in
             log.word("checking")/
             if AccountManager.shared.isLoggedIn {
-                log.word("checking..Yes")/
+//                log.word("checking..Yes")/
                 self?.navigationController?.popToRootViewController(animated: true)
                 self?.navigationController?.isNavigationBarHidden = false
                 self?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                SocketManager.shared.readyToReceiveMessage()
             } else {
-                log.word("checking..NO")/
+//                log.word("checking..NO")/
 
             }
         }

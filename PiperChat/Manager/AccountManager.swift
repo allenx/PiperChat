@@ -37,6 +37,7 @@ struct AccountManager {
             if succeeded {
                 UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
                 UserDefaults.standard.set(id, forKey: "PiperChatUserID")
+                UserDefaults.standard.set(userName, forKey: "PiperChatUserName")
                 
                 completion()
                 
@@ -49,7 +50,7 @@ struct AccountManager {
     
     func logOut(and completion: () -> ()) {
         UserDefaults.standard.removeObject(forKey: "PiperChatToken")
-        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
+//        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
     }
     
     
@@ -60,12 +61,14 @@ struct AccountManager {
             var friendList: [PiperChatUser] = []
             for friend in friends {
                 guard let friendID = friend["id"] as? Int,
+                    let friendUserName = friend["username"] as? String,
                     let friendNickName = friend["nickname"] as? String else {
                         completion([])
                         return
                 }
                 if "\(friendID)" != UserDefaults.standard.object(forKey: "PiperChatUserID") as! String {
-                    let friend = PiperChatUser(uid: "\(friendID)", userName: friendNickName)
+//                    let friend = PiperChatUser(uid: "\(friendID)", userName: friendNickName)
+                    let friend = PiperChatUser(uid: "\(friendID)", userName: friendUserName, nickName: friendNickName)
                     friendList.append(friend)
                 }
             }
@@ -74,6 +77,5 @@ struct AccountManager {
             completion(friendList)
         }
     }
-    
     
 }
