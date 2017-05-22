@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     var userPasswordTextField: TextField!
     var piperChatTitle: UILabel!
     var loginButton: UIButton!
+    var signupButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +78,7 @@ extension LoginViewController {
         
         AccountManager.shared.loginWith(userName: username!, password: password!) {
             [weak self] in
-            log.word("checking")/
+//            log.word("checking")/
             if AccountManager.shared.isLoggedIn {
 //                log.word("checking..Yes")/
                 self?.navigationController?.popToRootViewController(animated: true)
@@ -87,6 +88,26 @@ extension LoginViewController {
             } else {
 //                log.word("checking..NO")/
 
+            }
+        }
+    }
+    
+    func signup() {
+        let username = userNameTextField.text
+        let password = userPasswordTextField.text
+        
+        AccountManager.shared.signupWith(username: username!, password: password!) { 
+            [weak self] in
+//            log.word("checking")/
+            if AccountManager.shared.isLoggedIn {
+                //                log.word("checking..Yes")/
+                self?.navigationController?.popToRootViewController(animated: true)
+                self?.navigationController?.isNavigationBarHidden = false
+                self?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                SocketManager.shared.readyToReceiveMessage()
+            } else {
+                //                log.word("checking..NO")/
+                
             }
         }
     }
@@ -112,7 +133,12 @@ extension LoginViewController {
         
         loginButton = UIButton(title: "Log In", borderWidth: 0.5, borderColor: .clear)
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-        view.layout(loginButton).center(offsetY: userPasswordTextField.height + 30).left(100).right(100)
+        
+        signupButton = UIButton(title: "Sign Up", borderWidth: 0.5, borderColor: .clear)
+        signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
+        
+        view.layout(signupButton).center(offsetX: -100, offsetY: userPasswordTextField.height + 30)
+        view.layout(loginButton).center(offsetX: 100, offsetY: userPasswordTextField.height + 30)
     }
     
     func prepareTextFields() {

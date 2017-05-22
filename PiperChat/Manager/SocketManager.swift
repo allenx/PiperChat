@@ -22,42 +22,6 @@ class SocketManager: NSObject {
     
     func establishConnection() {
         
-        //        let channel = UserDefaults.standard.object(forKey: "PiperChatUserName") as! String
-        //        socket.on(channel) { (data, ack) in
-        //                if let dic = data[0] as? [String: Any] {
-        //                    guard let palID = dic["fromID"] as? Int,
-        //                        let string = dic["message"] as? String else {
-        //                            log.errorMessage("fuck")/
-        //                            return
-        //                    }
-        //
-        //                    let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
-        //                    PiperChatSessionManager.shared.didReceive(message: message)
-        //
-        //                    // For other view controllers to update their views
-        //                    self.delegate.didReceive(message: message)
-        //                }
-        //
-        //        }
-        
-        //        socket.on("messageSC") { (data, ack) in
-        //            if let dic = data[0] as? [String: Any] {
-        //                guard let palID = dic["fromID"] as? Int,
-        //                    let string = dic["message"] as? String else {
-        //                        log.errorMessage("fuck")/
-        //                        return
-        //                }
-        //
-        ////                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
-        //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: <#T##String!#>, palID: <#T##String#>)
-        //                PiperChatSessionManager.shared.didReceive(message: message)
-        //
-        //                // For other view controllers to update their views
-        //                self.delegate.didReceive(message: message)
-        //            }
-        //
-        //        }
-        
         socket.connect()
     }
     
@@ -141,6 +105,30 @@ class SocketManager: NSObject {
                         
                     } else {
                         completion(loginStatus, "0")
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    func signupWith(userName: String, password: String, completion: @escaping (Bool, String) -> ()) {
+        socket.emit("signup", ["username": userName, "password": password])
+        
+        socket.on("signupStatus") {
+            data, ack in
+            if let result = data as? [[String: Any]] {
+                if let status = result[0]["result"] as? String {
+                    var signupStatus = false
+                    if status == "success" {
+                        if let id = result[0]["id"] as? Int {
+                            signupStatus = true
+                            log.word("omg")/
+                            completion(signupStatus, "\(id)")
+                            return
+                        }
+                    } else {
+                        completion(signupStatus, "0")
                         return
                     }
                 }

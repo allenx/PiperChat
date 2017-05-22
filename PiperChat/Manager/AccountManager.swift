@@ -22,6 +22,32 @@ struct AccountManager {
         }
     }
     
+    func signupWith(username: String, password: String, and completion: @escaping () -> ()) {
+        guard username != "" else {
+            log.errorMessage("userName empty")/
+            return
+        }
+        guard password != "" else {
+            log.errorMessage("password empty")/
+            return
+        }
+        
+        //Do the networking and token caching
+        SocketManager.shared.signupWith(userName: username, password: password) { (succeeded, id) in
+            if succeeded {
+                UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
+                UserDefaults.standard.set(id, forKey: "PiperChatUserID")
+                UserDefaults.standard.set(username, forKey: "PiperChatUserName")
+                
+                completion()
+                
+            } else {
+                log.word("failed")/
+                completion()
+            }
+        }
+    }
+    
     func loginWith(userName: String, password: String, and completion: @escaping () -> ()) {
         guard userName != "" else {
             log.errorMessage("userName empty")/
