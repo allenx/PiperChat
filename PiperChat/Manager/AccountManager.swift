@@ -33,9 +33,15 @@ struct AccountManager {
         }
         
         //Do the networking and token caching
-        
+        SocketManager.shared.logInWith(userName: userName, password: password) { (succeeded) in
+            if succeeded {
+                log.word("logged in")/
+                UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
+            } else {
+                log.word("failed")/
+            }
+        }
         //Foo Testing
-        UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
         completion()
     }
     

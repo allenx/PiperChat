@@ -36,12 +36,22 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(true), .forcePolling(true)])
+//                let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .forcePolling(true)])
+        socket.on("connection") { (data, ack) in
+            log.word("socket connected")/
+            
+        }
+        
+//        socket.connect()
+        
+        
         sessions = RealmManager.shared.fetchSessions()
         
         if !AccountManager.shared.isLoggedIn {
             //            log.word("Need to Login")/
             let loginVC = LoginViewController()
-//            navigationController?.pushViewController(loginVC, animated: false)
+            navigationController?.pushViewController(loginVC, animated: false)
         }
         
         

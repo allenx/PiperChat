@@ -12,6 +12,7 @@ import UIKit
 class FriendsPickerView: UIView {
     
     var frostView: UIVisualEffectView!
+    var fooView: UIView!
     var tableView: UITableView!
     var friends: [PiperChatUser] = []
     var isTrackingPanLocation = false
@@ -34,6 +35,10 @@ class FriendsPickerView: UIView {
         frostView.frame = frame
         frostView.alpha = 0
         
+        fooView = UIView(frame: frame)
+        fooView.backgroundColor = .black
+        fooView.alpha = 0.1
+        
         let titleLabel = UILabel(text: "Pick a friend!", boldFontSize: 20)
         //        titleLabel.textColor = .gray
         titleLabel.sizeToFit()
@@ -44,7 +49,8 @@ class FriendsPickerView: UIView {
             make.top.equalTo(frostView).offset(40)
         }
         
-        addSubview(frostView)
+//        addSubview(frostView)
+        addSubview(fooView)
         
         tableView = UITableView()
         tableView.delegate = self
@@ -55,7 +61,8 @@ class FriendsPickerView: UIView {
         tableView.frame = CGRect(x: 0, y: Metadata.Size.Screen.height / 8, width: Metadata.Size.Screen.width, height: Metadata.Size.Screen.height/8*7 + 20)
         addSubview(tableView)
         tableView.transform = CGAffineTransform(translationX: 0, y: tableView.bounds.size.height)
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            self.fooView.alpha = 0.7
             self.frostView.alpha = 1
             self.tableView.transform = CGAffineTransform.identity
         }, completion: nil)
@@ -77,6 +84,7 @@ extension FriendsPickerView {
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.tableView.transform = CGAffineTransform(translationX: 0, y: self.tableView.bounds.size.height)
             self.frostView.alpha = 0
+            self.fooView.alpha = 0
         }) { finished in
             
             if finished {
@@ -95,6 +103,7 @@ extension FriendsPickerView {
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.tableView.transform = CGAffineTransform(translationX: 0, y: self.tableView.bounds.size.height)
             self.frostView.alpha = 0
+            self.fooView.alpha = 0
         }) { finished in
             
             if finished {
@@ -116,6 +125,10 @@ extension FriendsPickerView: UIGestureRecognizerDelegate {
         frostView.isUserInteractionEnabled = true
         frostView.addGestureRecognizer(tapGesture)
         frostView.addGestureRecognizer(swipeDown)
+        
+        fooView.isUserInteractionEnabled = true
+        fooView.addGestureRecognizer(tapGesture)
+        fooView.addGestureRecognizer(swipeDown)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panRecognized(recognizer:)))
         panGesture.delegate = self

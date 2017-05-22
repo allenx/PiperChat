@@ -31,6 +31,7 @@
 		B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */; };
 		B1A036DD1ECC853300B9DDDE /* PiperChatSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A036DC1ECC853300B9DDDE /* PiperChatSessionManager.swift */; };
 		B1A036DF1ECC9D3800B9DDDE /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A036DE1ECC9D3800B9DDDE /* SessionManager.swift */; };
+		B1D0CFDD1ED2EC1B00539523 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D0CFDC1ED2EC1B00539523 /* SocketManager.swift */; };
 		B1F795891ECCD57D000A6DEB /* GradientRainbowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F795881ECCD57D000A6DEB /* GradientRainbowView.swift */; };
 		B1F7958B1ECCD5E0000A6DEB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7958A1ECCD5E0000A6DEB /* LoginViewController.swift */; };
 		BBB952C199603255B26D6D10 /* Pods_PiperChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91DEF4BD117C06B3154446BC /* Pods_PiperChat.framework */; };
@@ -91,6 +92,7 @@
 		B16615151ECC7CA8000EEB05 /* PiperChatSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatSession.swift; sourceTree = "<group>"; };
 		B1A036DC1ECC853300B9DDDE /* PiperChatSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiperChatSessionManager.swift; sourceTree = "<group>"; };
 		B1A036DE1ECC9D3800B9DDDE /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = PiperChat/Model/SessionManager.swift; sourceTree = SOURCE_ROOT; };
+		B1D0CFDC1ED2EC1B00539523 /* SocketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		B1F795881ECCD57D000A6DEB /* GradientRainbowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientRainbowView.swift; sourceTree = "<group>"; };
 		B1F7958A1ECCD5E0000A6DEB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BD4EC1DE6338BB50BA8157BA /* Pods-PiperChatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiperChatUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PiperChatUITests/Pods-PiperChatUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				B1A036DC1ECC853300B9DDDE /* PiperChatSessionManager.swift */,
+				B1D0CFDC1ED2EC1B00539523 /* SocketManager.swift */,
 				B14568A11ECE31260010B9F1 /* RealmManager.swift */,
 				B15926711ECD935400AE9140 /* AccountManager.swift */,
 			);
@@ -538,6 +541,7 @@
 				B1F795891ECCD57D000A6DEB /* GradientRainbowView.swift in Sources */,
 				B16615121ECC5476000EEB05 /* SessionCell.swift in Sources */,
 				B16615141ECC7814000EEB05 /* Badge.swift in Sources */,
+				B1D0CFDD1ED2EC1B00539523 /* SocketManager.swift in Sources */,
 				B16615051ECAFEE2000EEB05 /* log.swift in Sources */,
 				B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */,
 				B15926721ECD935400AE9140 /* AccountManager.swift in Sources */,
