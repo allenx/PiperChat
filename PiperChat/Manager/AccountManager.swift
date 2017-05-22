@@ -22,7 +22,7 @@ struct AccountManager {
         }
     }
     
-    func loginWith(userName: String, password: String, and completion: () -> ()) {
+    func loginWith(userName: String, password: String, and completion: @escaping () -> ()) {
         guard userName != "" else {
             log.errorMessage("userName empty")/
             return
@@ -33,24 +33,47 @@ struct AccountManager {
         }
         
         //Do the networking and token caching
-        SocketManager.shared.logInWith(userName: userName, password: password) { (succeeded) in
+        SocketManager.shared.logInWith(userName: userName, password: password) { (succeeded, id) in
             if succeeded {
-                log.word("logged in")/
                 UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
+                UserDefaults.standard.set(id, forKey: "PiperChatUserID")
+                
+                completion()
+                
             } else {
                 log.word("failed")/
+                completion()
             }
         }
-        //Foo Testing
-        completion()
     }
     
     func logOut(and completion: () -> ()) {
         UserDefaults.standard.removeObject(forKey: "PiperChatToken")
-        
+        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
     }
     
     
+    func getFriendList(and completion: @escaping ([PiperChatUser]) -> ()) {
+        
+        SocketManager.shared.getFriendList(uid: Int(UserDefaults.standard.object(forKey: "PiperChatUserID") as! String)!) {
+            friends in
+            var friendList: [PiperChatUser] = []
+            for friend in friends {
+                guard let friendID = friend["id"] as? Int,
+                    let friendNickName = friend["nickname"] as? String else {
+                        completion([])
+                        return
+                }
+                if "\(friendID)" != UserDefaults.standard.object(forKey: "PiperChatUserID") as! String {
+                    let friend = PiperChatUser(uid: "\(friendID)", userName: friendNickName)
+                    friendList.append(friend)
+                }
+            }
+            PiperChatUserManager.shared.users = friendList
+            try! RealmManager.shared.flushToDisk(userToFlush: nil)
+            completion(friendList)
+        }
+    }
     
     
 }

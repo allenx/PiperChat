@@ -36,17 +36,10 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(true), .forcePolling(true)])
-//                let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .forcePolling(true)])
-        socket.on("connection") { (data, ack) in
-            log.word("socket connected")/
-            
-        }
-        
-//        socket.connect()
+//        SocketManager.shared.readyToReceiveMessages()
         
         
-        sessions = RealmManager.shared.fetchSessions()
+        sessions = PiperChatSessionManager.shared.sessions
         
         if !AccountManager.shared.isLoggedIn {
             //            log.word("Need to Login")/
@@ -149,15 +142,24 @@ class MainViewController: UIViewController {
     
     func startNewChat() {
         //foo testing
-        let user1 = PiperChatUser(uid: "1", userName: "Richard Hendrix")
-        let user2 = PiperChatUser(uid: "1", userName: "Allen X")
-        let user3 = PiperChatUser(uid: "1", userName: "Sean Luhring")
+//        let user1 = PiperChatUser(uid: "1", userName: "Richard Hendrix")
+//        let user2 = PiperChatUser(uid: "1", userName: "Allen X")
+//        let user3 = PiperChatUser(uid: "1", userName: "Sean Luhring")
+//        
+//        var friends = [user1, user2, user3]
+//        friends = friends + friends + friends + friends
         
-        var friends = [user1, user2, user3]
-        friends = friends + friends + friends + friends
+        if PiperChatUserManager.shared.users == nil {
+            AccountManager.shared.getFriendList {
+                friends in
+                let pickerView = FriendsPickerView(friends: PiperChatUserManager.shared.users!)
+                self.navigationController?.view.addSubview(pickerView)
+            }
+        } else {
+            let pickerView = FriendsPickerView(friends: PiperChatUserManager.shared.users!)
+            navigationController?.view.addSubview(pickerView)
+        }
         
-        let pickerView = FriendsPickerView(friends: friends)
-        navigationController?.view.addSubview(pickerView)
     }
     
 }

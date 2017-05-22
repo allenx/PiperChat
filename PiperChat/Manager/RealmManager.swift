@@ -67,4 +67,51 @@ final class RealmManager {
         }
         return sessions
     }
+    
+    func fetchUsers() -> [PiperChatUser]? {
+        var users: [PiperChatUser] = []
+        let userObjects = realm.objects(PiperChatUserObject.self)
+        for userObject in userObjects {
+            let user = PiperChatUser(mappedObject: userObject)
+            users.append(user)
+        }
+        if users.count == 0{
+            return nil
+        }
+        return users
+    }
+    
+    func flushToDisk(sessionToAdd: PiperChatSession?) {
+        
+        if sessionToAdd != nil {
+            try! RealmManager.shared.write {
+                transaction in
+                transaction.add(sessionToAdd!, update: true)
+            }
+            return
+        }
+        
+        for session in PiperChatSessionManager.shared.sessions {
+            try! RealmManager.shared.write {
+                transaction in
+                transaction.add(session, update: true)
+            }
+        }
+    }
+    
+    func flushToDisk(userToFlush: PiperChatUser?) {
+        if userToFlush != nil {
+            try! RealmManager.shared.write {
+                transaction in
+                transaction.add(userToFlush!, update: true)
+            }
+            return
+        }
+        for userToFlush in PiperChatUserManager.shared.users! {
+            try! RealmManager.shared.write {
+                transaction in
+                transaction.add(userToFlush, update: true)
+            }
+        }
+    }
 }

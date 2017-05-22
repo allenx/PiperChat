@@ -71,14 +71,21 @@ class LoginViewController: UIViewController {
 // Login Process
 extension LoginViewController {
     func login() {
+        
         let username = userNameTextField.text
         let password = userPasswordTextField.text
         
         AccountManager.shared.loginWith(userName: username!, password: password!) {
+            [weak self] in
+            log.word("checking")/
             if AccountManager.shared.isLoggedIn {
-                navigationController?.popToRootViewController(animated: true)
-                navigationController?.isNavigationBarHidden = false
-                navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                log.word("checking..Yes")/
+                self?.navigationController?.popToRootViewController(animated: true)
+                self?.navigationController?.isNavigationBarHidden = false
+                self?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            } else {
+                log.word("checking..NO")/
+
             }
         }
     }
