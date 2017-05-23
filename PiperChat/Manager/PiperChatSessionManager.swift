@@ -15,7 +15,7 @@ class PiperChatSessionManager: MessageOnReceiveDelegate {
         get {
             return try! RealmManager.shared.fetchSessions()
         } set {
-            sessions = newValue
+            
         }
     }
     

@@ -28,10 +28,12 @@ class UserCell: TableViewCell {
             avatarView.layer.cornerRadius = 28
             avatarView.clipsToBounds = true
         } else {
-            avatarView.sd_setImage(with: URL(string: "https://liukanshan.zhihu.com/images/downloads/avatars/classic/01-b18627b8.png"), placeholderImage: nil)
+            avatarView.sd_setImage(with: URL(string: "http://oqemn5a21.bkt.clouddn.com/piperchat_avatar\(palID!).jpg"), placeholderImage: #imageLiteral(resourceName: "default_avatar"))
             avatarView.layer.cornerRadius = 28
             avatarView.clipsToBounds = true
-            
+        
+        
+        
             // Caching
             SDImageCache.shared().store(avatarView.image, forKey: "avatar_\(palID!)", toDisk: true) {
                 log.word("Cached Successfully!")/

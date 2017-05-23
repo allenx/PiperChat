@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SocketManager.shared.establishConnection()
         
-//        AccountManager.shared.logOut {
-//            
-//        }
+        AccountManager.shared.logOut {
+            
+        }
         
         
         
