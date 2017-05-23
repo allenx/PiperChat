@@ -44,6 +44,7 @@ class MainViewController: UIViewController {
         
         SocketManager.shared.delegate = self
         
+        
         if !AccountManager.shared.isLoggedIn {
             //            log.word("Need to Login")/
             let loginVC = LoginViewController()

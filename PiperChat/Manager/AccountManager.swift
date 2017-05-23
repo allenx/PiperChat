@@ -38,7 +38,7 @@ struct AccountManager {
                 UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
                 UserDefaults.standard.set(id, forKey: "PiperChatUserID")
                 UserDefaults.standard.set(username, forKey: "PiperChatUserName")
-                
+                UserDefaults.standard.set(password, forKey: "PiperChatSecret_\(username)")
                 completion()
                 
             } else {
@@ -58,13 +58,14 @@ struct AccountManager {
             return
         }
         
+        
         //Do the networking and token caching
         SocketManager.shared.logInWith(userName: userName, password: password) { (succeeded, id) in
             if succeeded {
                 UserDefaults.standard.set("fooToken", forKey: "PiperChatToken")
                 UserDefaults.standard.set(id, forKey: "PiperChatUserID")
                 UserDefaults.standard.set(userName, forKey: "PiperChatUserName")
-                
+                UserDefaults.standard.set(password, forKey: "PiperChatSecret_\(userName)")
                 completion()
                 
             } else {
@@ -76,7 +77,10 @@ struct AccountManager {
     
     func logOut(and completion: () -> ()) {
         UserDefaults.standard.removeObject(forKey: "PiperChatToken")
-//        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
+        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
+        UserDefaults.standard.removeObject(forKey: "PiperChatSecret_\(UserDefaults.standard.object(forKey: "PiperChatUserName") as! String)")
+        UserDefaults.standard.removeObject(forKey: "PiperChatUserName")
+        
     }
     
     

@@ -23,16 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //        let vc = LoginViewController()
         
-        if UserDefaults.standard.object(forKey: "PiperChatUserID") == nil {
-            UserDefaults.standard.set("1", forKey: "PiperChatUserID")
-        }
-        if UserDefaults.standard.object(forKey: "PiperChatUserName") == nil {
-            UserDefaults.standard.set("foo", forKey: "PiperChatUserName")
-        }
+//        if UserDefaults.standard.object(forKey: "PiperChatUserID") == nil {
+//            UserDefaults.standard.set("1", forKey: "PiperChatUserID")
+//        }
+//        if UserDefaults.standard.object(forKey: "PiperChatUserName") == nil {
+//            UserDefaults.standard.set("foo", forKey: "PiperChatUserName")
+//        }
         
-        AccountManager.shared.logOut {
-            
-        }
+        SocketManager.shared.establishConnection()
+        
+//        AccountManager.shared.logOut {
+//            
+//        }
         
         
         
@@ -71,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        SocketManager.shared.establishConnection()
+//        SocketManager.shared.establishConnection()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

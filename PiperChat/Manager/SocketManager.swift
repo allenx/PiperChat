@@ -22,56 +22,58 @@ class SocketManager: NSObject {
     
     func establishConnection() {
         
+        SocketManager.shared.readyToReceiveMessage()
+        
+        socket.on("connection_status") {
+            data, ack in
+            if let dic = data[0] as? [String: Any] {
+                guard let status = dic["message"] as? String else {
+                    return
+                }
+                if status == "connected" {
+                    if AccountManager.shared.isLoggedIn {
+                        let username = UserDefaults.standard.object(forKey: "PiperChatUserName") as! String
+                        let secret = UserDefaults.standard.object(forKey: "PiperChatSecret_\(username)") as! String
+                        AccountManager.shared.loginWith(userName: username, password: secret) {
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
         socket.connect()
     }
     
     func readyToReceiveMessage() {
-        //        let channel = UserDefaults.standard.object(forKey: "PiperChatUserName") as! String
-        //        socket.on(channel) { (data, ack) in
-        //            if let dic = data[0] as? [String: Any] {
-        //                guard let palID = dic["fromID"] as? Int,
-        //                let palUserName = dic["from"] as? String,
-        //                    let string = dic["message"] as? String else {
-        //                        log.errorMessage("fuck")/
-        //                        return
-        //                }
-        //
-        ////                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
-        //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
-        //                PiperChatSessionManager.shared.didReceive(message: message)
-        //
-        //                // For other view controllers to update their views
-        //                self.delegate.didReceive(message: message)
-        //            }
-        //
-        //        }
+        log.errorMessage("Ready to receive message")/
+        log.obj(socket as! AnyObject)/
         
         socket.on("receive") { (data, ack) in
             if let dic = data[0] as? [String: Any] {
                 guard let palID = dic["fromID"] as? Int,
                     let palUserName = dic["from"] as? String,
-                    let string = dic["message"] as? String,
-                    let toUserName = dic["to"] as? String else {
+                    let string = dic["message"] as? String else {
                         //                        log.errorMessage("fuck")/
                         return
                 }
                 
-                //                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palID: "\(palID)")
-                if toUserName == UserDefaults.standard.object(forKey: "PiperChatUserName") as! String {
-                    let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
-                    
-                    log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
-                    
-                    PiperChatSessionManager.shared.didReceive(message: message)
-                    
-                    // For other view controllers to update their views
-                    self.delegate.didReceive(message: message)
-                }
+                log.errorMessage("Did receive message and current socket instance is: ")/
+                log.obj(self.socket as! AnyObject)/
                 
+                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
+                log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
+                
+                PiperChatSessionManager.shared.didReceive(message: message)
+                
+                // For other view controllers to update their views
+                self.delegate.didReceive(message: message)
             }
             
         }
+        
     }
+    
     
     func send(message: String, to username: String) {
         let messageBody: [String: String] = [
@@ -91,7 +93,6 @@ class SocketManager: NSObject {
         socket.emit("login", ["username": userName, "password": password])
         
         socket.on("loginStatus") { (data, ack) in
-            
             if let result = data as? [[String: Any]] {
                 if let status = result[0]["result"] as? String {
                     var loginStatus = false

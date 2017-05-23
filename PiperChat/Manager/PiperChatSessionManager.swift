@@ -21,7 +21,7 @@ class PiperChatSessionManager: MessageOnReceiveDelegate {
     
     
     func didReceive(message: PiperChatMessage) {
-        log.obj(message as AnyObject)/
+//        log.obj(message as AnyObject)/
         log.errorMessage("fufufufuufufful")/
         for var session in sessions {
             if message.palID == session.palID {
