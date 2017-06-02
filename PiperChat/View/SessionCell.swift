@@ -21,6 +21,12 @@ class SessionCell: TableViewCell {
         let palName = session.palName
         let palID = session.palID
         let messageToDisplay = session.latestMessage
+        var messageString = messageToDisplay.string
+        if session.palID == "0" {
+            if messageToDisplay.palID != UserDefaults.standard.object(forKey: "PiperChatUserID") as! String {
+                messageString = PiperChatUserManager.shared.userNickNameFrom(id: messageToDisplay.palID) + ": " + messageToDisplay.string
+            }
+        }
         let avatarView = UIImageView()
         
         
@@ -43,7 +49,7 @@ class SessionCell: TableViewCell {
         
         let palNameLabel = UILabel(text: palName!, boldFontSize: 18)
         palNameLabel.numberOfLines = 1
-        let messageToDisplayLabel = UILabel(text: messageToDisplay.string, fontSize: 14)
+        let messageToDisplayLabel = UILabel(text: messageString!, fontSize: 14)
         messageToDisplayLabel.numberOfLines = 2
         messageToDisplayLabel.textColor = Metadata.Color.secondaryTextColor
         
