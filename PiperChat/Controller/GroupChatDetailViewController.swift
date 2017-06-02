@@ -1,5 +1,5 @@
 //
-//  ChatDetailViewController.swift
+//  GroupChatDetailViewController.swift
 //  PiperChat
 //
 //  Created by Allen X on 5/17/17.
@@ -9,15 +9,7 @@
 import UIKit
 import SlackTextViewController
 
-
-enum ScrollOrientation {
-    case up
-    case down
-    case left
-    case right
-}
-
-class ChatDetailViewController: SLKTextViewController {
+class GroupChatDetailViewController: SLKTextViewController {
     
     
     var scrollOrientation: ScrollOrientation?
@@ -123,9 +115,9 @@ class ChatDetailViewController: SLKTextViewController {
     
 }
 
-extension ChatDetailViewController: MessageOnReceiveDelegate {
+extension GroupChatDetailViewController: MessageOnReceiveDelegate {
     func didReceive(message: PiperChatMessage) {
-        if message.type != .groupReceived && message.palID == session.palID {
+        if message.type == .groupReceived {
             let indexPath = IndexPath(row: messages.count, section: 0)
             let rowAnimation: UITableViewRowAnimation = .top
             
@@ -133,7 +125,7 @@ extension ChatDetailViewController: MessageOnReceiveDelegate {
             session.insert(message: message)
             log.any(session)/
             tableView?.insertRows(at: [indexPath], with: rowAnimation)
-
+            
             tableView?.endUpdates()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -143,7 +135,7 @@ extension ChatDetailViewController: MessageOnReceiveDelegate {
     }
 }
 
-extension ChatDetailViewController {
+extension GroupChatDetailViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -189,16 +181,16 @@ extension ChatDetailViewController {
             //Broken because of using SlackTextViewController
             let nextMessage = messages[indexPath.row + 1]
             if nextMessage.type == currentMessage.type {
-                bubbleHeight = bubbleHeight + 2
-            } else {
                 bubbleHeight = bubbleHeight + 8
+            } else {
+                bubbleHeight = bubbleHeight + 16
             }
             
             //            return bubbleHeight + 8
         }
         
         
-        return bubbleHeight
+        return currentMessage.type == .groupReceived ? bubbleHeight + 20 : bubbleHeight
     }
     
     
@@ -244,7 +236,7 @@ extension ChatDetailViewController {
         
         //        var cell = tableView.dequeueReusableCell(withIdentifier: "BubbleCell", for: indexPath)
         
-        let cell = BubbleCell(message: messages[indexPath.row])
+        let cell = GroupBubbleCell(message: messages[indexPath.row])
         
         //        cell.transform = tableView.transform
         return cell
@@ -253,18 +245,18 @@ extension ChatDetailViewController {
 
 
 //MARK: TextViewDelegate
-extension ChatDetailViewController {
+extension GroupChatDetailViewController {
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
         scrollToBottom(animated: true)
     }
     
     override func didPressRightButton(_ sender: Any?) {
-
+        
         textView.refreshFirstResponder()
         
-//        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palID: session.palID)
-        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palUserName: session.palUserName, palID: session.palID)
+        //        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .sent, palID: session.palID)
+        let messageToSend = PiperChatMessage(string: textView.text, timestamp: Date().ticks, type: .groupSent, palUserName: session.palUserName, palID: session.palID)
         //Send the message via socket and do networking and data storing
         
         let indexPath = IndexPath(row: messages.count, section: 0)
@@ -285,7 +277,7 @@ extension ChatDetailViewController {
             self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
         
-        SocketManager.shared.send(message: messageToSend.string, to: session.palUserName)
+        SocketManager.shared.sendToGroup(message: messageToSend.string)
         
         tableView?.reloadRows(at: [indexPath], with: .automatic)
         

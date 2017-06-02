@@ -15,6 +15,8 @@
 		B10254521EC9559A0064373A /* PiperChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254511EC9559A0064373A /* PiperChatUITests.swift */; };
 		B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102545F1ECA00C50064373A /* ClassExtensions.swift */; };
 		B10254621ECA015A0064373A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254611ECA015A0064373A /* Metadata.swift */; };
+		B10573561EE18A1900A237EF /* GroupBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10573551EE18A1900A237EF /* GroupBubbleCell.swift */; };
+		B10573591EE1AB6900A237EF /* GroupChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10573581EE1AB6900A237EF /* GroupChatDetailViewController.swift */; };
 		B14568A01ECE2A970010B9F1 /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B145689F1ECE2A970010B9F1 /* Persistent.swift */; };
 		B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A11ECE31260010B9F1 /* RealmManager.swift */; };
 		B14568A41ECF27A80010B9F1 /* FriendsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */; };
@@ -76,6 +78,8 @@
 		B10254531EC9559A0064373A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B102545F1ECA00C50064373A /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
 		B10254611ECA015A0064373A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		B10573551EE18A1900A237EF /* GroupBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupBubbleCell.swift; sourceTree = "<group>"; };
+		B10573581EE1AB6900A237EF /* GroupChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupChatDetailViewController.swift; sourceTree = "<group>"; };
 		B145689F1ECE2A970010B9F1 /* Persistent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
 		B14568A11ECE31260010B9F1 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsPickerView.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				B16615071ECB1760000EEB05 /* MainViewController.swift */,
 				B1F7958A1ECCD5E0000A6DEB /* LoginViewController.swift */,
 				B166150F1ECC4F20000EEB05 /* ChatDetailViewController.swift */,
+				B10573581EE1AB6900A237EF /* GroupChatDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 				B166150B1ECB1795000EEB05 /* BubbleCell.swift */,
 				B1F795881ECCD57D000A6DEB /* GradientRainbowView.swift */,
 				B16615111ECC5476000EEB05 /* SessionCell.swift */,
+				B10573551EE18A1900A237EF /* GroupBubbleCell.swift */,
 				B14568A51ECF512E0010B9F1 /* UserCell.swift */,
 				B14568A31ECF27A80010B9F1 /* FriendsPickerView.swift */,
 				B16615131ECC7814000EEB05 /* Badge.swift */,
@@ -542,6 +548,7 @@
 				B16615121ECC5476000EEB05 /* SessionCell.swift in Sources */,
 				B16615141ECC7814000EEB05 /* Badge.swift in Sources */,
 				B1D0CFDD1ED2EC1B00539523 /* SocketManager.swift in Sources */,
+				B10573591EE1AB6900A237EF /* GroupChatDetailViewController.swift in Sources */,
 				B16615051ECAFEE2000EEB05 /* log.swift in Sources */,
 				B10254601ECA00C50064373A /* ClassExtensions.swift in Sources */,
 				B1D0CFDF1ED31E0300539523 /* PiperChatUserManager.swift in Sources */,
@@ -554,6 +561,7 @@
 				B14568A21ECE31260010B9F1 /* RealmManager.swift in Sources */,
 				B16615161ECC7CA8000EEB05 /* PiperChatSession.swift in Sources */,
 				B14568A41ECF27A80010B9F1 /* FriendsPickerView.swift in Sources */,
+				B10573561EE18A1900A237EF /* GroupBubbleCell.swift in Sources */,
 				B16615081ECB1760000EEB05 /* MainViewController.swift in Sources */,
 				B1F7958B1ECCD5E0000A6DEB /* LoginViewController.swift in Sources */,
 				B166150E1ECC4C55000EEB05 /* PiperChatMessage.swift in Sources */,

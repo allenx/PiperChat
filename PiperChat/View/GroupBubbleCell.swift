@@ -1,22 +1,15 @@
 //
-//  BubbleCell.swift
+//  GroupBubbleCellTableViewCell.swift
 //  PiperChat
 //
-//  Created by Allen X on 5/16/17.
+//  Created by Allen X on 6/2/17.
 //  Copyright © 2017 allenx. All rights reserved.
 //
 
 import UIKit
 
-enum CellType {
-    case sent
-    case received
-    case groupSent
-    case groupReceived
-}
+class GroupBubbleCell: UITableViewCell {
 
-class BubbleCell: UITableViewCell {
-    
     var message: PiperChatMessage!
     var type: CellType!
     
@@ -26,6 +19,23 @@ class BubbleCell: UITableViewCell {
         self.type = message.type
         
         let bubble = bubbleWith(message: message)
+        if type == .groupReceived {
+            log.word("fooo")/
+            let nameLabel = UILabel(text: PiperChatUserManager.shared.userNickNameFrom(id: message.palID), fontSize: 14)
+            let avatarView = UIImageView()
+
+            avatarView.sd_setImage(with: URL(string: "http://oqemn5a21.bkt.clouddn.com/piperchat_avatar\(message.palID).jpg"), placeholderImage: #imageLiteral(resourceName: "default_avatar"))
+            avatarView.layer.cornerRadius = 17
+            avatarView.clipsToBounds = true
+            avatarView.frame = CGRect(x: 8, y: 5, width: 34, height: 34)
+            log.word(nameLabel.text!)/
+            nameLabel.textColor = .gray
+            nameLabel.sizeToFit()
+            nameLabel.frame = CGRect(x: 18+39, y: 0, width: nameLabel.bounds.size.width, height: nameLabel.bounds.size.height)
+            contentView.addSubview(avatarView)
+            contentView.addSubview(nameLabel)
+        }
+        
         contentView.addSubview(bubble)
         
         selectionStyle = .none
@@ -59,14 +69,14 @@ class BubbleCell: UITableViewCell {
             cornerRadius = bubbleHeight / 3.0
         }
         
-        if message.type == .sent {
+        if message.type == .groupSent {
             
             if message.string.characters.count < 5 && message.string.containsOnlyEmoji {
                 let emojiBubble = UILabel(text: message.string, fontSize: 50)
                 emojiBubble.sizeToFit()
                 bubbleWidth = emojiBubble.bounds.size.width
                 bubbleHeight = emojiBubble.bounds.size.height
-//                log.obj(bubbleHeight as AnyObject)/
+                //                log.obj(bubbleHeight as AnyObject)/
                 emojiBubble.frame = CGRect(x: (Metadata.Size.Screen.width-15-bubbleWidth), y: 0, width: bubbleWidth, height: bubbleHeight)
                 return emojiBubble
             }
@@ -115,7 +125,7 @@ class BubbleCell: UITableViewCell {
                 emojiBubble.sizeToFit()
                 bubbleWidth = emojiBubble.bounds.size.width
                 bubbleHeight = emojiBubble.bounds.size.height
-                emojiBubble.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: bubbleHeight)
+                emojiBubble.frame = CGRect(x: 15+39, y: 20, width: bubbleWidth, height: bubbleHeight)
                 return emojiBubble
             }
             
@@ -123,7 +133,7 @@ class BubbleCell: UITableViewCell {
             bubble?.layer.cornerRadius = cornerRadius
             bubble?.clipsToBounds = true
             
-            bubble?.frame = CGRect(x: 15, y: 0, width: bubbleWidth, height: bubbleHeight)
+            bubble?.frame = CGRect(x: 15+39, y: 20, width: bubbleWidth, height: bubbleHeight)
             
             //            let messageLabel = UILabel(text: message.string, fontSize: 14)
             //            messageLabel.textColor = .black
@@ -168,5 +178,5 @@ class BubbleCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
+
 }

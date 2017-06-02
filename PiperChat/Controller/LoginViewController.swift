@@ -84,7 +84,7 @@ extension LoginViewController {
                 self?.navigationController?.popToRootViewController(animated: true)
                 self?.navigationController?.isNavigationBarHidden = false
                 self?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                SocketManager.shared.readyToReceiveMessage()
+//                SocketManager.shared.readyToReceiveMessage()
             } else {
 //                log.word("checking..NO")/
 
@@ -104,7 +104,7 @@ extension LoginViewController {
                 self?.navigationController?.popToRootViewController(animated: true)
                 self?.navigationController?.isNavigationBarHidden = false
                 self?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                SocketManager.shared.readyToReceiveMessage()
+//                SocketManager.shared.readyToReceiveMessage()
             } else {
                 //                log.word("checking..NO")/
                 

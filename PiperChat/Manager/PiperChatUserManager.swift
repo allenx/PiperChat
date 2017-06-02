@@ -21,18 +21,19 @@ class PiperChatUserManager: NSObject {
         if users != nil {
             for user in users! {
                 if user.uid == id {
-                    return user.userName
+                    return user.nickName
                 }
             }
         } else {
-            AccountManager.shared.getFriendList(and: { (_) in
-                
-            })
-            for user in users! {
-                if user.uid == id {
-                    return user.userName
+            AccountManager.shared.getFriendList(and: {
+                users in
+                for user in users {
+                    if user.uid == id {
+                        return user.nickName
+                    }
                 }
-            }
+                return "Anonymous"
+            })
         }
         
         

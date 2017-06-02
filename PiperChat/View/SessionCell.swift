@@ -24,21 +24,21 @@ class SessionCell: TableViewCell {
         let avatarView = UIImageView()
         
         
-        if let avatarImage = SDImageCache.shared().imageFromCache(forKey: "avatar_\(palID!)") {
-//            log.word("Found Cache!")/
-            avatarView.image = avatarImage
-            avatarView.layer.cornerRadius = 28
-            avatarView.clipsToBounds = true
-        } else {
+//        if let avatarImage = SDImageCache.shared().imageFromCache(forKey: "avatar_\(palID!)") {
+////            log.word("Found Cache!")/
+//            avatarView.image = avatarImage
+//            avatarView.layer.cornerRadius = 28
+//            avatarView.clipsToBounds = true
+//        } else {
             avatarView.sd_setImage(with: URL(string: "http://oqemn5a21.bkt.clouddn.com/piperchat_avatar\(palID!).jpg"), placeholderImage: #imageLiteral(resourceName: "default_avatar"))
             avatarView.layer.cornerRadius = 28
             avatarView.clipsToBounds = true
             
             // Caching
-            SDImageCache.shared().store(avatarView.image, forKey: "avatar_\(palID!)", toDisk: true) {
-                log.word("Cached Successfully!")/
-            }
-        }
+//            SDImageCache.shared().store(avatarView.image, forKey: "avatar_\(palID!)", toDisk: true) {
+//                log.word("Cached Successfully!")/
+//            }
+//        }
         
         
         let palNameLabel = UILabel(text: palName!, boldFontSize: 18)

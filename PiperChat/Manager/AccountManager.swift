@@ -76,15 +76,15 @@ struct AccountManager {
     }
     
     func logOut(and completion: () -> ()) {
-        UserDefaults.standard.removeObject(forKey: "PiperChatToken")
-        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
-        UserDefaults.standard.removeObject(forKey: "PiperChatSecret_\(UserDefaults.standard.object(forKey: "PiperChatUserName") as! String)")
-        UserDefaults.standard.removeObject(forKey: "PiperChatUserName")
+//        UserDefaults.standard.removeObject(forKey: "PiperChatToken")
+//        UserDefaults.standard.removeObject(forKey: "PiperChatUserID")
+//        UserDefaults.standard.removeObject(forKey: "PiperChatSecret_\(UserDefaults.standard.object(forKey: "PiperChatUserName") as! String)")
+//        UserDefaults.standard.removeObject(forKey: "PiperChatUserName")
         
     }
     
     
-    func getFriendList(and completion: @escaping ([PiperChatUser]) -> ()) {
+    func getFriendList(and completion: @escaping ([PiperChatUser]) -> String) {
         
         SocketManager.shared.getFriendList(uid: Int(UserDefaults.standard.object(forKey: "PiperChatUserID") as! String)!) {
             friends in

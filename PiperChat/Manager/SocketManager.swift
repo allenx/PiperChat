@@ -18,7 +18,7 @@ class SocketManager: NSObject {
     static let shared = SocketManager()
     var delegate: MessageOnReceiveDelegate!
     
-    private var socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(true), .forcePolling(true)])
+    private var socket = SocketIOClient(socketURL: URL(string: "http://35.185.153.217:3000")!, config: [.log(false), .forcePolling(true)])
     
     func establishConnection() {
         
@@ -47,7 +47,6 @@ class SocketManager: NSObject {
     
     func readyToReceiveMessage() {
         log.errorMessage("Ready to receive message")/
-        log.obj(socket as! AnyObject)/
         
         socket.on("receive") { (data, ack) in
             if let dic = data[0] as? [String: Any] {
@@ -58,11 +57,10 @@ class SocketManager: NSObject {
                         return
                 }
                 
-                log.errorMessage("Did receive message and current socket instance is: ")/
-                log.obj(self.socket as! AnyObject)/
+//                log.errorMessage("Did receive message and current socket instance is: ")/
                 
                 let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .received, palUserName: palUserName, palID: "\(palID)")
-                log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
+//                log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
                 
                 PiperChatSessionManager.shared.didReceive(message: message)
                 
@@ -70,6 +68,28 @@ class SocketManager: NSObject {
                 self.delegate.didReceive(message: message)
             }
             
+        }
+        
+        socket.on("groupTalk") {
+            data, ack in
+            if let dic = data[0] as? [String: Any] {
+                guard let palID = dic["fromID"] as? Int,
+                    let palUserName = dic["from"] as? String,
+                    let string = dic["message"] as? String else {
+                        //                        log.errorMessage("fuck")/
+                        return
+                }
+                
+//                log.errorMessage("Did receive message and current socket instance is: ")/
+                
+                let message = PiperChatMessage(string: string, timestamp: Date().ticks, type: .groupReceived, palUserName: palUserName, palID: "\(palID)")
+//                log.word("sfdjsdfjklsdfjlksdfjklsdfjlksdjfklsdjflksdjfklsdjf")/
+                
+                PiperChatSessionManager.shared.didReceive(message: message)
+                
+                // For other view controllers to update their views
+                self.delegate.didReceive(message: message)
+            }
         }
         
     }
@@ -85,12 +105,21 @@ class SocketManager: NSObject {
         socket.emit("messageTo", messageBody)
     }
     
+    func sendToGroup(message: String) {
+        let messageBody: [String: String] = [
+            "fromID": UserDefaults.standard.object(forKey: "PiperChatUserID") as! String,
+            "from": UserDefaults.standard.object(forKey: "PiperChatUserName") as! String,
+            "message": message
+        ]
+        socket.emit("messageToGroup", messageBody)
+
+    }
+    
     func closeConnection() {
         socket.disconnect()
     }
     
     func logInWith(userName: String, password: String, completion: @escaping (Bool, String) -> ()) {
-        socket.emit("login", ["username": userName, "password": password])
         
         socket.on("loginStatus") { (data, ack) in
             if let result = data as? [[String: Any]] {
@@ -111,6 +140,9 @@ class SocketManager: NSObject {
                 }
             }
         }
+        
+        socket.emit("login", ["username": userName, "password": password])
+    
     }
     
     func signupWith(userName: String, password: String, completion: @escaping (Bool, String) -> ()) {

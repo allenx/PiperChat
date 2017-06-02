@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         sessions = PiperChatSessionManager.shared.sessions
         chatTableView.reloadData()
+        SocketManager.shared.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,8 +42,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        SocketManager.shared.delegate = self
         
         
         if !AccountManager.shared.isLoggedIn {
@@ -158,11 +157,27 @@ class MainViewController: UIViewController {
                 friends in
                 let pickerView = FriendsPickerView(friends: PiperChatUserManager.shared.users!)
                 self.navigationController?.view.addSubview(pickerView)
+                return "foo"
             }
         } else {
             let pickerView = FriendsPickerView(friends: PiperChatUserManager.shared.users!)
             navigationController?.view.addSubview(pickerView)
         }
+        
+    }
+    
+    func startGroupChat() {
+        //foo testing
+        //        let user1 = PiperChatUser(uid: "1", userName: "Richard Hendrix")
+        //        let user2 = PiperChatUser(uid: "1", userName: "Allen X")
+        //        let user3 = PiperChatUser(uid: "1", userName: "Sean Luhring")
+        //
+        //        var friends = [user1, user2, user3]
+        //        friends = friends + friends + friends + friends
+        
+        let newSession = PiperChatSession(palID: "0", palName: "Groupie Talkie", palUserName: "GroupieTalkie", messages: [])
+        let groupChatDetailVC = GroupChatDetailViewController(session: newSession)
+        navigationController?.pushViewController(groupChatDetailVC, animated: true)
         
     }
     
@@ -227,13 +242,20 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row < sessions.count {
-            let chatDetailVC = ChatDetailViewController(session: sessions[indexPath.row])
-            //            let chatDetailVC = ChatDetailLiveViewController(messages: sessions[indexPath.row].messages)
-            navigationController?.pushViewController(chatDetailVC, animated: true)
+            let session = sessions[indexPath.row]
+            if session.palID == "0" {
+                let groupChatDetailVC = GroupChatDetailViewController(session: sessions[indexPath.row])
+                navigationController?.pushViewController(groupChatDetailVC, animated: true)
+            } else {
+                let chatDetailVC = ChatDetailViewController(session: sessions[indexPath.row])
+                navigationController?.pushViewController(chatDetailVC, animated: true)
+            }
+            
         } else if indexPath.row == sessions.count {
             startNewChat()
         } else if indexPath.row == sessions.count + 1 {
             // Create a group
+            startGroupChat()
         }
         
         

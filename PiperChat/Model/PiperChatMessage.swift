@@ -36,7 +36,18 @@ extension PiperChatMessage: Persistent {
     init(mappedObject: PiperChatMessageObject) {
         string = mappedObject.string
         timestamp = UInt64(mappedObject.timestamp)!
-        type = mappedObject.type == 0 ? .received : .sent
+        switch mappedObject.type {
+        case 0:
+            type = .received
+        case 1:
+            type = .sent
+        case 2:
+            type = .groupReceived
+        case 3:
+            type = .groupSent
+        default:
+            type = .received
+        }
         palUserName = mappedObject.palUserName
         palID = mappedObject.palID
     }
@@ -45,7 +56,16 @@ extension PiperChatMessage: Persistent {
         let mappedObject = PiperChatMessageObject()
         mappedObject.string = string
         mappedObject.timestamp = String(timestamp!)
-        mappedObject.type = type == .received ? 0 : 1
+        switch type! {
+        case .received:
+            mappedObject.type = 0
+        case .sent:
+            mappedObject.type = 1
+        case .groupReceived:
+            mappedObject.type = 2
+        case .groupSent:
+            mappedObject.type = 3
+        }
         mappedObject.palUserName = palUserName
         mappedObject.palID = palID
         
