@@ -50,7 +50,6 @@ class BubbleCell: UITableViewCell {
                 //                bubbleWidth = CGFloat(message.string.characters.count) * 8 + 20
                 let fooLabel = UILabel(text: message.string)
                 fooLabel.font = Metadata.Font.messageFont
-                fooLabel.sizeToFit()
                 bubbleWidth = fooLabel.bounds.size.width + 20
             }
         }
